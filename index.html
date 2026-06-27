@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giáo viên Võ Thanh Đậm</title>
+    <!-- Liên kết CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome (miễn phí) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+
+    <!-- ====== HEADER / NAV ====== -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Võ Thanh Đậm</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><button class="active" data-section="home"><i class="fas fa-home"></i> Trang chủ</button></li>
+                <li><button data-section="teacher"><i class="fas fa-user-graduate"></i> Giáo viên</button></li>
+                <li><button data-section="photos"><i class="fas fa-images"></i> Kho ảnh <span class="badge" id="photoCount">0</span></button></li>
+                <li><button data-section="videos"><i class="fas fa-video"></i> Kho video <span class="badge" id="videoCount">0</span></button></li>
+                <li><button data-section="documents"><i class="fas fa-folder-open"></i> Tài liệu <span class="badge" id="docCount">0</span></button></li>
+                <li><button data-section="links"><i class="fas fa-link"></i> Liên kết</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <main class="container">
+
+        <!-- ===== TRANG CHỦ ===== -->
+        <section class="section active" id="section-home">
+            <div class="card hero-card">
+                <div class="hero">
+                    <div class="hero-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="hero-info">
+                        <h1>Võ Thanh Đậm</h1>
+                        <div class="title-role"><i class="fas fa-chalkboard"></i> Giáo viên Tin học</div>
+                        <p>Chào mừng đến với website cá nhân. Tại đây bạn có thể tìm hiểu thông tin về tôi, tham khảo kho ảnh, video và tài liệu giảng dạy. Mọi tài liệu đều có thể xem và tải xuống.</p>
+                        <div class="hero-stats">
+                            <span class="stat"><i class="fas fa-calendar-alt"></i> <strong>24</strong> năm kinh nghiệm</span>
+                            <span class="stat"><i class="fas fa-graduation-cap"></i> <strong>2</strong> bằng Cử nhân</span>
+                            <span class="stat"><i class="fas fa-book-open"></i> <strong>Tin học</strong> bộ môn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card info-highlight">
+                <div class="highlight-content">
+                    <div>
+                        <h3><i class="fas fa-arrow-right"></i> Hệ số lương 4,32 · Bậc 7</h3>
+                        <p>Nâng lương ngày 01/06/2027 · 24 năm cống hiến</p>
+                    </div>
+                    <a href="#section-teacher" class="btn-highlight" onclick="switchSection('teacher')">Xem chi tiết <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="card stat-item">
+                    <i class="fas fa-images"></i>
+                    <div class="stat-number" id="homePhotoCount">0</div>
+                    <div class="stat-label">Ảnh</div>
+                </div>
+                <div class="card stat-item">
+                    <i class="fas fa-video"></i>
+                    <div class="stat-number" id="homeVideoCount">0</div>
+                    <div class="stat-label">Video</div>
+                </div>
+                <div class="card stat-item">
+                    <i class="fas fa-file-alt"></i>
+                    <div class="stat-number" id="homeDocCount">0</div>
+                    <div class="stat-label">Tài liệu</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== THÔNG TIN GIÁO VIÊN ===== -->
+        <section class="section" id="section-teacher">
+            <div class="card">
+                <div class="section-title"><i class="fas fa-user-graduate"></i> Thông tin giáo viên</div>
+                <div class="section-sub">Hồ sơ chuyên môn và quá trình công tác</div>
+
+                <div class="teacher-profile">
+                    <div class="teacher-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="teacher-info">
+                        <div class="info-grid">
+                            <div class="info-item"><span class="label">Ngày sinh</span><span class="value">05/09/1983</span></div>
+                            <div class="info-item"><span class="label">Bậc / Hệ số</span><span class="value">Bậc 7 · 4,32</span></div>
+                            <div class="info-item"><span class="label">Nâng lương</span><span class="value">01/06/2027</span></div>
+                            <div class="info-item"><span class="label">Kinh nghiệm</span><span class="value">24 năm <small>(từ 2002)</small></span></div>
+                            <div class="info-item"><span class="label">Bộ môn</span><span class="value">Tin học</span></div>
+                            <div class="info-item"><span class="label">Văn bằng</span><span class="value">Cử nhân GD Tiểu học <br /> Cử nhân Công nghệ thông tin</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teacher-tags">
+                    <span><i class="fas fa-calendar-check"></i> 24 năm giảng dạy</span>
+                    <span><i class="fas fa-laptop-code"></i> Chuyên môn Tin học</span>
+                    <span><i class="fas fa-university"></i> 2 bằng Cử nhân</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== KHO ẢNH ===== -->
+        <section class="section" id="section-photos">
+            <div class="card">
+                <div class="section-title"><i class="fas fa-images"></i> Kho ảnh</div>
+                <div class="section-sub">Click vào ảnh để xem toàn màn hình</div>
+                <div class="gallery-grid" id="photoGrid"></div>
+            </div>
+        </section>
+
+        <!-- ===== KHO VIDEO ===== -->
+        <section class="section" id="section-videos">
+            <div class="card">
+                <div class="section-title"><i class="fas fa-video"></i> Kho video</div>
+                <div class="section-sub">Video từ YouTube, Vimeo</div>
+                <div class="gallery-grid" id="videoGrid"></div>
+            </div>
+        </section>
+
+        <!-- ===== KHO TÀI LIỆU ===== -->
+        <section class="section" id="section-documents">
+            <div class="card">
+                <div class="section-title"><i class="fas fa-folder-open"></i> Kho tài liệu</div>
+                <div class="section-sub">Tài liệu có thể xem và tải xuống</div>
+                <div class="doc-list" id="docList"></div>
+            </div>
+        </section>
+
+        <!-- ===== LIÊN KẾT WEBSITE GIÁO DỤC ===== -->
+        <section class="section" id="section-links">
+            <div class="card">
+                <div class="section-title"><i class="fas fa-link"></i> Liên kết website giáo dục</div>
+                <div class="section-sub">Các trang web hữu ích cho học tập và giảng dạy</div>
+                <div class="links-grid" id="linksGrid"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ====== LIGHTBOX (toàn màn hình) ====== -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img class="lightbox-content" id="lightboxImg" src="" alt="Ảnh phóng to" />
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="footer">
+        <p>&copy; 2026 Võ Thanh Đậm - Website cá nhân</p>
+    </footer>
+
+    <!-- ============================================================
+    DỮ LIỆU MẪU (khai báo trong HTML, dễ dàng chỉnh sửa)
+    ============================================================ -->
+    <script>
+        // ---- Dữ liệu ảnh, video, tài liệu, liên kết ----
+        // Bạn có thể thêm / sửa / xóa các phần tử trong mảng dưới đây
+
+        const PHOTOS = [
+            { id: 'p1', url: 'https://i.ibb.co/tPXW5C8V/7cecf5215ca5f65fafebfe3fabc3ff0d.jpg', title: 'Lớp học Tin học', desc: 'Giờ thực hành tại phòng máy' },
+            { id: 'p2', url: 'https://picsum.photos/seed/teacher/600/400', title: 'Giáo viên Võ Thanh Đậm', desc: 'Trong giờ lên lớp' },
+            { id: 'p3', url: 'https://picsum.photos/seed/school/600/400', title: 'Khuôn viên trường', desc: 'Góc sân trường' },
+            { id: 'p4', url: 'https://picsum.photos/seed/students/600/400', title: 'Học sinh thực hành', desc: 'Các em đang làm bài tập' },
+        ];
+
+        const VIDEOS = [
+            { id: 'v1', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', title: 'Video giới thiệu', desc: 'Video mẫu về giảng dạy' },
+            { id: 'v2', url: 'https://www.youtube.com/watch?v=3JZ_D3ELwOQ', title: 'Học Tin học vui', desc: 'Bài giảng thú vị' },
+        ];
+
+        const DOCUMENTS = [
+            { id: 'd1', url: 'https://drive.google.com/file/d/1Wp_pWeOQuE5WUtKADi0VLK05qKqUhFfm/view?usp=sharing', title: 'Danh hiệu', desc: 'Chiến sĩ thi đua cơ sở 2013' },
+            { id: 'd2', url: 'https://drive.google.com/file/d/1JgOg-gRh2f4GEBYIGdkTuKJ6-4fzjqCp/view?usp=sharing', title: 'Danh hiệu', desc: 'Chiến sĩ thi đua cơ sở 2017' },
+            { id: 'd3', url: 'https://drive.google.com/file/d/1Kyrl-SAbPM_y8W5PpJFQKE-I1TUgDXc-/view?usp=sharing', title: 'Giấy chứng nhận', desc: 'Giáo viên dạy giỏi cấp huyện 2014' },
+            { id: 'd4', url: 'https://drive.google.com/file/d/1ub6dPVJCRVeIPnZw5j5Ae8VuyPQ6P3P3/view?usp=sharing', title: 'Giấy chứng nhận', desc: 'Giải nhì Hội thi Thiết kế bài giảng E-learning' },
+            { id: 'd5', url: 'https://drive.google.com/file/d/1xi2uSEK3NDU7ceL2GW7GFIAjs8vqF-bD/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2023-2024' },
+            { id: 'd6', url: 'https://drive.google.com/file/d/1jpt2OwwLUY41FBs0G8yy7qeWxkCp7JTB/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2024-2025' },
+            { id: 'd7', url: 'https://drive.google.com/file/d/1kXxbxXwnkiXXyFYgg9KKPV4eFUwoEYx-/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2013-2014' },
+        ];
+
+        // ---- Danh sách liên kết website giáo dục ----
+        const LINKS = [
+            { title: 'Bộ Giáo dục và Đào tạo', url: 'https://moet.gov.vn', desc: 'Trang chính của Bộ GD&ĐT' },
+            { title: 'VietnamNet - Giáo dục', url: 'https://vietnamnet.vn/giao-duc', desc: 'Tin tức giáo dục mới nhất' },
+            { title: 'Học mãi', url: 'https://hocmai.vn', desc: 'Nền tảng học trực tuyến hàng đầu' },
+            { title: 'Nhà xuất bản Giáo dục Việt Nam', url: 'https://taphuan.nxbgd.vn', desc: 'Bộ sách giáo khoa thống nhất' },
+            { title: 'Tin học trẻ', url: 'https://tinhoctre.vn', desc: 'Sân chơi Tin học cho học sinh' },
+            { title: 'Bồi dưỡng Giáo viên Phổ thông', url: 'https://taphuan.csdl.edu.vn', desc: 'Quản lý cơ sở giáo dục' },
+            { title: 'VNEDU Trần Quốc Toản', url: 'https://ucnnzccazsgdkiengiang.vnedu.vn', desc: 'Quản lý học sinh' },
+            { title: 'Đại học Trà Vinh', url: 'https://lms2tvu.onschool.edu.vn/', desc: 'Khóa học trực tuyến' },
+        ];
+    </script>
+
+    <!-- Liên kết JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
