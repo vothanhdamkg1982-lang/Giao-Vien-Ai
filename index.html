@@ -4,14 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Giáo viên Võ Thanh Đậm</title>
-    <!-- Liên kết CSS -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Font Awesome (miễn phí) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
 
-    <!-- ====== HEADER / NAV ====== -->
+    <!-- HEADER / NAV -->
     <header class="header">
         <nav class="navbar">
             <div class="logo">
@@ -27,21 +25,20 @@
                 <li><button data-section="photos"><i class="fas fa-images"></i> Kho ảnh <span class="badge" id="photoCount">0</span></button></li>
                 <li><button data-section="videos"><i class="fas fa-video"></i> Kho video <span class="badge" id="videoCount">0</span></button></li>
                 <li><button data-section="documents"><i class="fas fa-folder-open"></i> Tài liệu <span class="badge" id="docCount">0</span></button></li>
+                <li><button data-section="chuyenmon"><i class="fas fa-folder"></i> Chuyên môn <span class="badge" id="chuyenmonCount">0</span></button></li>
                 <li><button data-section="links"><i class="fas fa-link"></i> Liên kết</button></li>
             </ul>
         </nav>
     </header>
 
-    <!-- ====== MAIN CONTENT ====== -->
+    <!-- MAIN CONTENT -->
     <main class="container">
 
-        <!-- ===== TRANG CHỦ ===== -->
+        <!-- TRANG CHỦ -->
         <section class="section active" id="section-home">
             <div class="card hero-card">
                 <div class="hero">
-                    <div class="hero-avatar">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
+                    <div class="hero-avatar"><i class="fas fa-user-tie"></i></div>
                     <div class="hero-info">
                         <h1>Võ Thanh Đậm</h1>
                         <div class="title-role"><i class="fas fa-chalkboard"></i> Giáo viên Tin học</div>
@@ -54,7 +51,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="card info-highlight">
                 <div class="highlight-content">
                     <div>
@@ -64,36 +60,20 @@
                     <a href="#section-teacher" class="btn-highlight" onclick="switchSection('teacher')">Xem chi tiết <i class="fas fa-chevron-right"></i></a>
                 </div>
             </div>
-
             <div class="stats-grid">
-                <div class="card stat-item">
-                    <i class="fas fa-images"></i>
-                    <div class="stat-number" id="homePhotoCount">0</div>
-                    <div class="stat-label">Ảnh</div>
-                </div>
-                <div class="card stat-item">
-                    <i class="fas fa-video"></i>
-                    <div class="stat-number" id="homeVideoCount">0</div>
-                    <div class="stat-label">Video</div>
-                </div>
-                <div class="card stat-item">
-                    <i class="fas fa-file-alt"></i>
-                    <div class="stat-number" id="homeDocCount">0</div>
-                    <div class="stat-label">Tài liệu</div>
-                </div>
+                <div class="card stat-item"><i class="fas fa-images"></i><div class="stat-number" id="homePhotoCount">0</div><div class="stat-label">Ảnh</div></div>
+                <div class="card stat-item"><i class="fas fa-video"></i><div class="stat-number" id="homeVideoCount">0</div><div class="stat-label">Video</div></div>
+                <div class="card stat-item"><i class="fas fa-file-alt"></i><div class="stat-number" id="homeDocCount">0</div><div class="stat-label">Tài liệu</div></div>
             </div>
         </section>
 
-        <!-- ===== THÔNG TIN GIÁO VIÊN ===== -->
+        <!-- THÔNG TIN GIÁO VIÊN -->
         <section class="section" id="section-teacher">
             <div class="card">
                 <div class="section-title"><i class="fas fa-user-graduate"></i> Thông tin giáo viên</div>
                 <div class="section-sub">Hồ sơ chuyên môn và quá trình công tác</div>
-
                 <div class="teacher-profile">
-                    <div class="teacher-avatar">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
+                    <div class="teacher-avatar"><i class="fas fa-user-tie"></i></div>
                     <div class="teacher-info">
                         <div class="info-grid">
                             <div class="info-item"><span class="label">Ngày sinh</span><span class="value">05/09/1983</span></div>
@@ -105,7 +85,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="teacher-tags">
                     <span><i class="fas fa-calendar-check"></i> 24 năm giảng dạy</span>
                     <span><i class="fas fa-laptop-code"></i> Chuyên môn Tin học</span>
@@ -114,34 +93,66 @@
             </div>
         </section>
 
-        <!-- ===== KHO ẢNH ===== -->
+        <!-- KHO ẢNH -->
         <section class="section" id="section-photos">
             <div class="card">
                 <div class="section-title"><i class="fas fa-images"></i> Kho ảnh</div>
                 <div class="section-sub">Click vào ảnh để xem toàn màn hình</div>
+                <div class="filter-bar" id="photoFilterBar">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="giangday">Giảng dạy</button>
+                    <button class="filter-btn" data-filter="hoatdong">Hoạt động</button>
+                    <button class="filter-btn" data-filter="sukien">Sự kiện</button>
+                </div>
                 <div class="gallery-grid" id="photoGrid"></div>
             </div>
         </section>
 
-        <!-- ===== KHO VIDEO ===== -->
+        <!-- KHO VIDEO -->
         <section class="section" id="section-videos">
             <div class="card">
                 <div class="section-title"><i class="fas fa-video"></i> Kho video</div>
                 <div class="section-sub">Video từ YouTube, Vimeo</div>
+                <div class="filter-bar" id="videoFilterBar">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="giangday">Giảng dạy</button>
+                    <button class="filter-btn" data-filter="hoatdong">Hoạt động</button>
+                </div>
                 <div class="gallery-grid" id="videoGrid"></div>
             </div>
         </section>
 
-        <!-- ===== KHO TÀI LIỆU ===== -->
+        <!-- KHO TÀI LIỆU -->
         <section class="section" id="section-documents">
             <div class="card">
                 <div class="section-title"><i class="fas fa-folder-open"></i> Kho tài liệu</div>
                 <div class="section-sub">Tài liệu có thể xem và tải xuống</div>
+                <div class="filter-bar" id="docFilterBar">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="quyetdinh">Quyết định</button>
+                    <button class="filter-btn" data-filter="khenthuong">Khen thưởng</button>
+                    <button class="filter-btn" data-filter="chungnhan">Chứng nhận</button>
+                </div>
                 <div class="doc-list" id="docList"></div>
             </div>
         </section>
 
-        <!-- ===== LIÊN KẾT WEBSITE GIÁO DỤC ===== -->
+        <!-- KHO CHUYÊN MÔN -->
+        <section class="section" id="section-chuyenmon">
+            <div class="card">
+                <div class="section-title"><i class="fas fa-folder"></i> Kho lưu trữ chuyên môn</div>
+                <div class="section-sub">Giáo án, đề thi, sáng kiến kinh nghiệm và tài liệu chuyên môn</div>
+                <div class="filter-bar" id="chuyenmonFilterBar">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="giaoan">Giáo án</button>
+                    <button class="filter-btn" data-filter="dethi">Đề thi</button>
+                    <button class="filter-btn" data-filter="sangkien">Sáng kiến</button>
+                </div>
+                <div class="doc-list" id="chuyenmonList"></div>
+            </div>
+        </section>
+
+        <!-- LIÊN KẾT -->
         <section class="section" id="section-links">
             <div class="card">
                 <div class="section-title"><i class="fas fa-link"></i> Liên kết website giáo dục</div>
@@ -152,58 +163,69 @@
 
     </main>
 
-    <!-- ====== LIGHTBOX (toàn màn hình) ====== -->
+    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
         <img class="lightbox-content" id="lightboxImg" src="" alt="Ảnh phóng to" />
         <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
 
-    <!-- ====== FOOTER ====== -->
+    <!-- FOOTER -->
     <footer class="footer">
         <p>&copy; 2026 Võ Thanh Đậm - Website cá nhân</p>
     </footer>
 
     <!-- ============================================================
-    DỮ LIỆU MẪU (khai báo trong HTML, dễ dàng chỉnh sửa)
+    DỮ LIỆU MẪU (có phân loại)
     ============================================================ -->
     <script>
-        // ---- Dữ liệu ảnh, video, tài liệu, liên kết ----
-        // Bạn có thể thêm / sửa / xóa các phần tử trong mảng dưới đây
-
+        // ---- Ảnh (có category) ----
         const PHOTOS = [
-            { id: 'p1', url: 'https://i.ibb.co/tPXW5C8V/7cecf5215ca5f65fafebfe3fabc3ff0d.jpg', title: 'Lớp học Tin học', desc: 'Giờ thực hành tại phòng máy' },
-            { id: 'p2', url: 'https://picsum.photos/seed/teacher/600/400', title: 'Giáo viên Võ Thanh Đậm', desc: 'Trong giờ lên lớp' },
-            { id: 'p3', url: 'https://picsum.photos/seed/school/600/400', title: 'Khuôn viên trường', desc: 'Góc sân trường' },
-            { id: 'p4', url: 'https://picsum.photos/seed/students/600/400', title: 'Học sinh thực hành', desc: 'Các em đang làm bài tập' },
+            { id: 'p1', url: 'https://i.ibb.co/tPXW5C8V/7cecf5215ca5f65fafebfe3fabc3ff0d.jpg', title: 'Lớp học Tin học', desc: 'Giờ thực hành tại phòng máy', category: 'giangday' },
+            { id: 'p2', url: 'https://picsum.photos/seed/teacher/600/400', title: 'Giáo viên Võ Thanh Đậm', desc: 'Trong giờ lên lớp', category: 'giangday' },
+            { id: 'p3', url: 'https://picsum.photos/seed/school/600/400', title: 'Khuôn viên trường', desc: 'Góc sân trường', category: 'sukien' },
+            { id: 'p4', url: 'https://picsum.photos/seed/students/600/400', title: 'Học sinh thực hành', desc: 'Các em đang làm bài tập', category: 'hoatdong' },
         ];
 
+        // ---- Video (có category) ----
         const VIDEOS = [
-            { id: 'v1', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', title: 'Video giới thiệu', desc: 'Video mẫu về giảng dạy' },
-            { id: 'v2', url: 'https://www.youtube.com/watch?v=3JZ_D3ELwOQ', title: 'Học Tin học vui', desc: 'Bài giảng thú vị' },
+            { id: 'v1', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', title: 'Video giới thiệu', desc: 'Video mẫu về giảng dạy', category: 'giangday' },
+            { id: 'v2', url: 'https://www.youtube.com/watch?v=3JZ_D3ELwOQ', title: 'Học Tin học vui', desc: 'Bài giảng thú vị', category: 'hoatdong' },
         ];
 
+        // ---- Tài liệu (có category) ----
         const DOCUMENTS = [
-            { id: 'd1', url: 'https://drive.google.com/file/d/1Wp_pWeOQuE5WUtKADi0VLK05qKqUhFfm/view?usp=sharing', title: 'Danh hiệu', desc: 'Chiến sĩ thi đua cơ sở 2013' },
-            { id: 'd2', url: 'https://drive.google.com/file/d/1JgOg-gRh2f4GEBYIGdkTuKJ6-4fzjqCp/view?usp=sharing', title: 'Danh hiệu', desc: 'Chiến sĩ thi đua cơ sở 2017' },
-            { id: 'd3', url: 'https://drive.google.com/file/d/1Kyrl-SAbPM_y8W5PpJFQKE-I1TUgDXc-/view?usp=sharing', title: 'Giấy chứng nhận', desc: 'Giáo viên dạy giỏi cấp huyện 2014' },
-            { id: 'd4', url: 'https://drive.google.com/file/d/1ub6dPVJCRVeIPnZw5j5Ae8VuyPQ6P3P3/view?usp=sharing', title: 'Giấy chứng nhận', desc: 'Giải nhì Hội thi Thiết kế bài giảng E-learning' },
-            { id: 'd5', url: 'https://drive.google.com/file/d/1xi2uSEK3NDU7ceL2GW7GFIAjs8vqF-bD/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2023-2024' },
-            { id: 'd6', url: 'https://drive.google.com/file/d/1jpt2OwwLUY41FBs0G8yy7qeWxkCp7JTB/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2024-2025' },
-            { id: 'd7', url: 'https://drive.google.com/file/d/1kXxbxXwnkiXXyFYgg9KKPV4eFUwoEYx-/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2013-2014' },
-            { id: 'd8', url: 'https://drive.google.com/file/d/1vxR9nSswrzNFBcpjrR0kdvsWmGLdetRS/view?usp=sharing', title: 'Quyết định', desc: 'Tuyển dụng công chức Ngạch Giáo viên Tiểu học 15.114_2003' },
-            { id: 'd9', url: 'https://drive.google.com/file/d/1DDKkPpNzY6G2fwrlu_lHwS6QH8YHsrH0/view?usp=sharing', title: 'Quyết định', desc: 'Chuyển xếp lương Bậc 2(1,74) sang Bậc 2(2,06) 15.114_2005' },
-            { id: 'd10', url: 'https://drive.google.com/file/d/1iHtEE0KQyKBY3KmxAgpVYkXjcp61UoSA/view?usp=sharing', title: 'Quyết định', desc: 'Chuyển loại viên chức Bậc 5(2,66_15.114) lên Bậc 3(2,72_15a.204)_2011' },
-            { id: 'd11', url: 'https://drive.google.com/file/d/1ZjxyInf1pk0zffXRbWv-4keCXpoUUJH2/view?usp=sharing', title: 'Quyết định', desc: 'Điều động phân công Cán bộ _Giáo viên_2002' },
-            { id: 'd12', url: 'https://drive.google.com/file/d/1beJiCZIECZaYNELoSw_tB7FaPrCaxRpa/view?usp=sharing', title: 'Quyết định', desc: 'Bổ nhiệm chức danh nghề nghiệp GVTH Hạng III(V.07.03.08) Bậc 4_Hs:3,03_2016' },
-            { id: 'd13', url: 'https://drive.google.com/file/d/1vxR9nSswrzNFBcpjrR0kdvsWmGLdetRS/view?usp=sharing', title: 'Quyết định', desc: 'Bổ nhiệm chức danh nghề nghiệp GVTH Hạng III(V.07.03.29) Bậc 6_Hs:3,99_2023' },
-            { id: 'd14', url: 'https://drive.google.com/file/d/1zIYCYVQr6WL5FFusLic983DkV2H-t6Z_/view?usp=sharing', title: 'Quyết định', desc: 'Nâng lương trước thời hạn GVTH Hạng III(V.07.03.08_Bậc 5_HS:3,34 lên Bậc 6 HS: 3,65) 2018' },
-            { id: 'd15', url: 'https://drive.google.com/file/d/1LnmQhKsNwOCca8roA60qtXiYFUmB8tmn/view?usp=sharing', title: 'Quyết định', desc: 'Nâng lương theo thời hạn GVTH Hạng III(V.07.03.08) Bậc 6_Hs:3,65 lên Bậc 7_Hs:3,96_2021' },
-            { id: 'd16', url: 'https://drive.google.com/file/d/1H-3HJIvQJkdKFys3-xC9Co16O-EtBkTl/view?usp=sharing', title: 'Quyết định', desc: 'Nâng lương theo thời hạn GVTH Hạng III(V.07.03.29) Bậc 6_Hs:3,99 lên Bậc 7_Hs:4,32_2024' },
-            { id: 'd17', url: 'https://drive.google.com/file/d/1ZRLaI8SEXsr1-fqiQ7Jy-MMmHPiy3FQo/view?usp=sharing', title: 'Quyết định', desc: 'Nâng phụ cấp thâm niên Ngạch GVTH Hạng III(V.07.03.29) từ 21% lên 22% từ 01/06/2025' },    
+            { id: 'd1', url: 'https://drive.google.com/file/d/1Wp_pWeOQuE5WUtKADi0VLK05qKqUhFfm/view?usp=sharing', title: 'Danh hiệu', desc: 'Chiến sĩ thi đua cơ sở 2013', category: 'khenthuong' },
+            { id: 'd2', url: 'https://drive.google.com/file/d/1JgOg-gRh2f4GEBYIGdkTuKJ6-4fzjqCp/view?usp=sharing', title: 'Danh hiệu', desc: 'Chiến sĩ thi đua cơ sở 2017', category: 'khenthuong' },
+            { id: 'd3', url: 'https://drive.google.com/file/d/1Kyrl-SAbPM_y8W5PpJFQKE-I1TUgDXc-/view?usp=sharing', title: 'Giấy chứng nhận', desc: 'Giáo viên dạy giỏi cấp huyện 2014', category: 'chungnhan' },
+            { id: 'd4', url: 'https://drive.google.com/file/d/1ub6dPVJCRVeIPnZw5j5Ae8VuyPQ6P3P3/view?usp=sharing', title: 'Giấy chứng nhận', desc: 'Giải nhì Hội thi Thiết kế bài giảng E-learning', category: 'chungnhan' },
+            { id: 'd5', url: 'https://drive.google.com/file/d/1xi2uSEK3NDU7ceL2GW7GFIAjs8vqF-bD/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2023-2024', category: 'khenthuong' },
+            { id: 'd6', url: 'https://drive.google.com/file/d/1jpt2OwwLUY41FBs0G8yy7qeWxkCp7JTB/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2024-2025', category: 'khenthuong' },
+            { id: 'd7', url: 'https://drive.google.com/file/d/1kXxbxXwnkiXXyFYgg9KKPV4eFUwoEYx-/view?usp=sharing', title: 'Giấy khen', desc: 'Hoàn thành tốt nhiệm vụ năm học 2013-2014', category: 'khenthuong' },
+            { id: 'd8', url: 'https://drive.google.com/file/d/1vxR9nSswrzNFBcpjrR0kdvsWmGLdetRS/view?usp=sharing', title: 'Quyết định', desc: 'Tuyển dụng công chức Ngạch Giáo viên Tiểu học 15.114_2003', category: 'quyetdinh' },
+            { id: 'd9', url: 'https://drive.google.com/file/d/1DDKkPpNzY6G2fwrlu_lHwS6QH8YHsrH0/view?usp=sharing', title: 'Quyết định', desc: 'Chuyển xếp lương Bậc 2(1,74) sang Bậc 2(2,06) 15.114_2005', category: 'quyetdinh' },
+            { id: 'd10', url: 'https://drive.google.com/file/d/1iHtEE0KQyKBY3KmxAgpVYkXjcp61UoSA/view?usp=sharing', title: 'Quyết định', desc: 'Chuyển loại viên chức Bậc 5(2,66_15.114) lên Bậc 3(2,72_15a.204)_2011', category: 'quyetdinh' },
+            { id: 'd11', url: 'https://drive.google.com/file/d/1ZjxyInf1pk0zffXRbWv-4keCXpoUUJH2/view?usp=sharing', title: 'Quyết định', desc: 'Điều động phân công Cán bộ _Giáo viên_2002', category: 'quyetdinh' },
+            { id: 'd12', url: 'https://drive.google.com/file/d/1beJiCZIECZaYNELoSw_tB7FaPrCaxRpa/view?usp=sharing', title: 'Quyết định', desc: 'Bổ nhiệm chức danh nghề nghiệp GVTH Hạng III(V.07.03.08) Bậc 4_Hs:3,03_2016', category: 'quyetdinh' },
+            { id: 'd13', url: 'https://drive.google.com/file/d/1vxR9nSswrzNFBcpjrR0kdvsWmGLdetRS/view?usp=sharing', title: 'Quyết định', desc: 'Bổ nhiệm chức danh nghề nghiệp GVTH Hạng III(V.07.03.29) Bậc 6_Hs:3,99_2023', category: 'quyetdinh' },
+            { id: 'd14', url: 'https://drive.google.com/file/d/1zIYCYVQr6WL5FFusLic983DkV2H-t6Z_/view?usp=sharing', title: 'Quyết định', desc: 'Nâng lương trước thời hạn GVTH Hạng III(V.07.03.08_Bậc 5_HS:3,34 lên Bậc 6 HS: 3,65) 2018', category: 'quyetdinh' },
+            { id: 'd15', url: 'https://drive.google.com/file/d/1LnmQhKsNwOCca8roA60qtXiYFUmB8tmn/view?usp=sharing', title: 'Quyết định', desc: 'Nâng lương theo thời hạn GVTH Hạng III(V.07.03.08) Bậc 6_Hs:3,65 lên Bậc 7_Hs:3,96_2021', category: 'quyetdinh' },
+            { id: 'd16', url: 'https://drive.google.com/file/d/1H-3HJIvQJkdKFys3-xC9Co16O-EtBkTl/view?usp=sharing', title: 'Quyết định', desc: 'Nâng lương theo thời hạn GVTH Hạng III(V.07.03.29) Bậc 6_Hs:3,99 lên Bậc 7_Hs:4,32_2024', category: 'quyetdinh' },
+            { id: 'd17', url: 'https://drive.google.com/file/d/1ZRLaI8SEXsr1-fqiQ7Jy-MMmHPiy3FQo/view?usp=sharing', title: 'Quyết định', desc: 'Nâng phụ cấp thâm niên Ngạch GVTH Hạng III(V.07.03.29) từ 21% lên 22% từ 01/06/2025', category: 'quyetdinh' },
         ];
 
-        // ---- Danh sách liên kết website giáo dục ----
+        // ---- Chuyên môn (giáo án, đề thi, sáng kiến) ----
+        const CHUYENMON = [
+            { id: 'cm1', title: 'Giáo án Tin học lớp 3 - Bài 1', desc: 'Làm quen với máy tính', url: '#', category: 'giaoan', type: 'pdf' },
+            { id: 'cm2', title: 'Giáo án Tin học lớp 4 - Bài 5', desc: 'Sử dụng công cụ vẽ', url: '#', category: 'giaoan', type: 'pdf' },
+            { id: 'cm3', title: 'Giáo án Tin học lớp 5 - Bài 8', desc: 'Lập trình Scratch cơ bản', url: '#', category: 'giaoan', type: 'pdf' },
+            { id: 'cm4', title: 'Đề thi học kỳ 1 - Tin học 3', desc: 'Năm học 2024-2025', url: '#', category: 'dethi', type: 'pdf' },
+            { id: 'cm5', title: 'Đề thi học kỳ 2 - Tin học 4', desc: 'Năm học 2024-2025', url: '#', category: 'dethi', type: 'pdf' },
+            { id: 'cm6', title: 'Sáng kiến kinh nghiệm: Ứng dụng CNTT trong dạy học', desc: 'Giải A cấp huyện', url: '#', category: 'sangkien', type: 'pdf' },
+            { id: 'cm7', title: 'Sáng kiến: Học mà chơi - Trò chơi ô chữ Tin học', desc: 'Áp dụng cho lớp 3,4', url: '#', category: 'sangkien', type: 'pdf' },
+        ];
+
+        // ---- Liên kết (không đổi) ----
         const LINKS = [
             { title: 'Bộ Giáo dục và Đào tạo', url: 'https://moet.gov.vn', desc: 'Trang chính của Bộ GD&ĐT' },
             { title: 'VietnamNet - Giáo dục', url: 'https://vietnamnet.vn/giao-duc', desc: 'Tin tức giáo dục mới nhất' },
@@ -216,7 +238,6 @@
         ];
     </script>
 
-    <!-- Liên kết JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>

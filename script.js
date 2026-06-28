@@ -3,29 +3,34 @@
    ============================================================ */
 
 // Lấy dữ liệu từ biến toàn cục đã khai báo trong HTML
-// (PHOTOS, VIDEOS, DOCUMENTS, LINKS)
+// (PHOTOS, VIDEOS, DOCUMENTS, CHUYENMON, LINKS)
 
 // ===== Chuyển đổi section =====
 function switchSection(sectionId) {
-    // Ẩn tất cả section
     document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-    // Hiển thị section được chọn
     const target = document.getElementById('section-' + sectionId);
     if (target) target.classList.add('active');
 
-    // Cập nhật trạng thái nút
     document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
     const btn = document.querySelector(`.nav-links button[data-section="${sectionId}"]`);
     if (btn) btn.classList.add('active');
 
-    // Đóng menu mobile
     document.getElementById('navLinks').classList.remove('open');
 
-    // Render lại nội dung nếu cần
-    if (sectionId === 'photos') renderPhotos();
-    if (sectionId === 'videos') renderVideos();
-    if (sectionId === 'documents') renderDocuments();
+    // Render dữ liệu khi vào section
+    if (sectionId === 'photos') renderPhotos(getActiveFilter('photoFilterBar'));
+    if (sectionId === 'videos') renderVideos(getActiveFilter('videoFilterBar'));
+    if (sectionId === 'documents') renderDocuments(getActiveFilter('docFilterBar'));
+    if (sectionId === 'chuyenmon') renderChuyenMon(getActiveFilter('chuyenmonFilterBar'));
     if (sectionId === 'links') renderLinks();
+}
+
+// ===== Lấy filter đang active =====
+function getActiveFilter(barId) {
+    const bar = document.getElementById(barId);
+    if (!bar) return 'all';
+    const activeBtn = bar.querySelector('.filter-btn.active');
+    return activeBtn ? activeBtn.dataset.filter : 'all';
 }
 
 // ===== Cập nhật số lượng badge =====
@@ -33,19 +38,23 @@ function updateBadges() {
     document.getElementById('photoCount').textContent = PHOTOS.length;
     document.getElementById('videoCount').textContent = VIDEOS.length;
     document.getElementById('docCount').textContent = DOCUMENTS.length;
+    document.getElementById('chuyenmonCount').textContent = CHUYENMON.length;
     document.getElementById('homePhotoCount').textContent = PHOTOS.length;
     document.getElementById('homeVideoCount').textContent = VIDEOS.length;
     document.getElementById('homeDocCount').textContent = DOCUMENTS.length;
 }
 
-// ===== Render ẢNH =====
-function renderPhotos() {
+// ===== Render ẢNH (có lọc) =====
+function renderPhotos(filter = 'all') {
     const grid = document.getElementById('photoGrid');
-    if (!PHOTOS.length) {
-        grid.innerHTML = `<div class="empty-state"><i class="fas fa-images"></i><p>Chưa có ảnh nào.</p></div>`;
+    let items = PHOTOS;
+    if (filter !== 'all') items = items.filter(p => p.category === filter);
+
+    if (!items.length) {
+        grid.innerHTML = `<div class="empty-state"><i class="fas fa-images"></i><p>Không có ảnh nào trong danh mục này.</p></div>`;
         return;
     }
-    grid.innerHTML = PHOTOS.map(p => `
+    grid.innerHTML = items.map(p => `
         <div class="gallery-item" data-id="${p.id}">
             <img src="${p.url}" alt="${p.title || 'Ảnh'}" loading="lazy" />
             <div class="gallery-body">
@@ -59,8 +68,8 @@ function renderPhotos() {
         </div>
     `).join('');
 
-    // Gắn sự kiện click vào ảnh để mở lightbox
-    document.querySelectorAll('#photoGrid .gallery-item img').forEach((img, index) => {
+    // Lightbox cho ảnh
+    document.querySelectorAll('#photoGrid .gallery-item img').forEach((img) => {
         img.addEventListener('click', function(e) {
             e.stopPropagation();
             const item = this.closest('.gallery-item');
@@ -71,14 +80,17 @@ function renderPhotos() {
     });
 }
 
-// ===== Render VIDEO =====
-function renderVideos() {
+// ===== Render VIDEO (có lọc) =====
+function renderVideos(filter = 'all') {
     const grid = document.getElementById('videoGrid');
-    if (!VIDEOS.length) {
-        grid.innerHTML = `<div class="empty-state"><i class="fas fa-video"></i><p>Chưa có video nào.</p></div>`;
+    let items = VIDEOS;
+    if (filter !== 'all') items = items.filter(v => v.category === filter);
+
+    if (!items.length) {
+        grid.innerHTML = `<div class="empty-state"><i class="fas fa-video"></i><p>Không có video nào trong danh mục này.</p></div>`;
         return;
     }
-    grid.innerHTML = VIDEOS.map(v => {
+    grid.innerHTML = items.map(v => {
         const embedUrl = getEmbedUrl(v.url);
         return `
             <div class="gallery-item">
@@ -97,14 +109,17 @@ function renderVideos() {
     }).join('');
 }
 
-// ===== Render TÀI LIỆU =====
-function renderDocuments() {
+// ===== Render TÀI LIỆU (có lọc) =====
+function renderDocuments(filter = 'all') {
     const list = document.getElementById('docList');
-    if (!DOCUMENTS.length) {
-        list.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><p>Chưa có tài liệu nào.</p></div>`;
+    let items = DOCUMENTS;
+    if (filter !== 'all') items = items.filter(d => d.category === filter);
+
+    if (!items.length) {
+        list.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><p>Không có tài liệu nào trong danh mục này.</p></div>`;
         return;
     }
-    list.innerHTML = DOCUMENTS.map(d => `
+    list.innerHTML = items.map(d => `
         <div class="doc-item">
             <div class="doc-info">
                 <i class="fas fa-file-pdf"></i>
@@ -119,6 +134,39 @@ function renderDocuments() {
             </div>
         </div>
     `).join('');
+}
+
+// ===== Render CHUYÊN MÔN (có lọc) =====
+function renderChuyenMon(filter = 'all') {
+    const list = document.getElementById('chuyenmonList');
+    let items = CHUYENMON;
+    if (filter !== 'all') items = items.filter(c => c.category === filter);
+
+    if (!items.length) {
+        list.innerHTML = `<div class="empty-state"><i class="fas fa-folder"></i><p>Không có tài liệu chuyên môn nào trong danh mục này.</p></div>`;
+        return;
+    }
+    list.innerHTML = items.map(c => {
+        // Xác định icon dựa trên loại
+        let icon = 'fa-file-pdf';
+        if (c.type === 'video') icon = 'fa-video';
+        else if (c.type === 'image') icon = 'fa-image';
+        return `
+            <div class="doc-item">
+                <div class="doc-info">
+                    <i class="fas ${icon}"></i>
+                    <div>
+                        <div class="doc-title">${c.title || 'Tài liệu chuyên môn'}</div>
+                        <div class="doc-desc">${c.desc || ''}</div>
+                    </div>
+                </div>
+                <div class="doc-actions">
+                    <a href="${c.url}" target="_blank" rel="noopener"><i class="fas fa-eye"></i> Xem</a>
+                    <a href="${c.url}" download="${c.title || 'chuyenmon'}.pdf"><i class="fas fa-download"></i> Tải xuống</a>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 // ===== Render LIÊN KẾT =====
@@ -145,15 +193,11 @@ function renderLinks() {
 // ===== Helper: lấy embed URL cho video =====
 function getEmbedUrl(url) {
     if (!url) return 'about:blank';
-    // YouTube
     let match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
     if (match) return `https://www.youtube.com/embed/${match[1]}`;
-    // Vimeo
     match = url.match(/vimeo\.com\/(\d+)/);
     if (match) return `https://player.vimeo.com/video/${match[1]}`;
-    // Nếu đã là embed
     if (url.includes('embed')) return url;
-    // Mặc định
     return url;
 }
 
@@ -177,7 +221,6 @@ function closeLightbox() {
     document.body.style.overflow = '';
 }
 
-// Sự kiện đóng lightbox
 lightboxClose.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', function(e) {
     if (e.target === this) closeLightbox();
@@ -187,9 +230,44 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ============================================================
-// KHỞI TẠO
+// FILTER BUTTONS
 // ============================================================
-// Navigation events
+document.querySelectorAll('.filter-bar').forEach(bar => {
+    bar.addEventListener('click', function(e) {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        // Cập nhật trạng thái active
+        this.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        const barId = this.id;
+
+        // Xác định section cha và gọi render tương ứng
+        const section = this.closest('.section');
+        if (!section) return;
+        const sectionId = section.id.replace('section-', '');
+
+        switch (sectionId) {
+            case 'photos':
+                renderPhotos(filter);
+                break;
+            case 'videos':
+                renderVideos(filter);
+                break;
+            case 'documents':
+                renderDocuments(filter);
+                break;
+            case 'chuyenmon':
+                renderChuyenMon(filter);
+                break;
+        }
+    });
+});
+
+// ============================================================
+// NAVIGATION EVENTS
+// ============================================================
 document.querySelectorAll('.nav-links button').forEach(btn => {
     btn.addEventListener('click', function() {
         const section = this.dataset.section;
@@ -202,10 +280,14 @@ document.getElementById('menuToggle').addEventListener('click', function() {
     document.getElementById('navLinks').classList.toggle('open');
 });
 
-// Render ban đầu
-renderPhotos();
-renderVideos();
-renderDocuments();
+// ============================================================
+// KHỞI TẠO
+// ============================================================
+// Render ban đầu với filter 'all'
+renderPhotos('all');
+renderVideos('all');
+renderDocuments('all');
+renderChuyenMon('all');
 renderLinks();
 updateBadges();
 
@@ -213,5 +295,5 @@ updateBadges();
 switchSection('home');
 
 console.log('✅ Website đã sẵn sàng!');
-console.log('📦 Dữ liệu được khai báo trong file HTML (mảng PHOTOS, VIDEOS, DOCUMENTS, LINKS).');
+console.log('📦 Dữ liệu được khai báo trong file HTML (PHOTOS, VIDEOS, DOCUMENTS, CHUYENMON, LINKS).');
 console.log('💡 Bạn có thể thêm/sửa/xóa trực tiếp trong các mảng đó.');

@@ -181,7 +181,7 @@ a:hover {
 }
 .section-sub {
     color: var(--text-light);
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     border-left: 4px solid var(--accent);
     padding-left: 16px;
 }
@@ -200,6 +200,37 @@ a:hover {
 }
 .card:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+}
+
+/* ============================================================
+   FILTER BAR
+   ============================================================ */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+.filter-btn {
+    background: var(--bg);
+    border: none;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-light);
+    font-family: var(--font);
+}
+.filter-btn:hover {
+    background: #dce3eb;
+    color: var(--text);
+}
+.filter-btn.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(30, 58, 95, 0.25);
 }
 
 /* ============================================================
@@ -498,7 +529,7 @@ a:hover {
 }
 
 /* ============================================================
-   KHO TÀI LIỆU (DANH SÁCH)
+   KHO TÀI LIỆU & CHUYÊN MÔN (DANH SÁCH)
    ============================================================ */
 .doc-list {
     display: flex;
