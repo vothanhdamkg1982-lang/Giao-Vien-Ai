@@ -511,6 +511,7 @@ a:hover {
     gap: 10px;
     font-size: 0.95rem;
      flex: 1;                 /* co giãn đều nhau */
+     width: 100%;              /* chiếm toàn bộ chiều ngang */
     text-align: center;      /* căn chữ giữa bên trong */
 }
 .teacher-tags span i {
