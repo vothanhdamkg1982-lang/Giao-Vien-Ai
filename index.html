@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <!-- HEADER / NAV -->
+    <!-- HEADER -->
     <header class="header">
         <nav class="navbar">
             <div class="logo">
@@ -31,14 +31,27 @@
         </nav>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- ===== BANNER ===== -->
+    <section class="banner">
+        <div class="banner-overlay">
+            <div class="banner-content">
+                <h1>Võ Thanh Đậm</h1>
+                <p>Giáo viên Tin học – 24 năm cống hiến</p>
+                <a href="#section-teacher" class="btn-banner" onclick="switchSection('teacher')">Tìm hiểu thêm</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
     <main class="container">
 
         <!-- TRANG CHỦ -->
         <section class="section active" id="section-home">
             <div class="card hero-card">
                 <div class="hero">
-                    <div class="hero-avatar"><i class="fas fa-user-tie"></i></div>
+                    <div class="hero-avatar">
+                        <img src="https://i.ibb.co/LdNJzdk1/IMG-0001.jpg" alt="Võ Thanh Đậm" />
+                    </div>
                     <div class="hero-info">
                         <h1>Võ Thanh Đậm</h1>
                         <div class="title-role"><i class="fas fa-chalkboard"></i> Giáo viên Tin học</div>
@@ -51,6 +64,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card info-highlight">
                 <div class="highlight-content">
                     <div>
@@ -60,6 +74,7 @@
                     <a href="#section-teacher" class="btn-highlight" onclick="switchSection('teacher')">Xem chi tiết <i class="fas fa-chevron-right"></i></a>
                 </div>
             </div>
+
             <div class="stats-grid">
                 <div class="card stat-item"><i class="fas fa-images"></i><div class="stat-number" id="homePhotoCount">0</div><div class="stat-label">Ảnh</div></div>
                 <div class="card stat-item"><i class="fas fa-video"></i><div class="stat-number" id="homeVideoCount">0</div><div class="stat-label">Video</div></div>
@@ -73,7 +88,9 @@
                 <div class="section-title"><i class="fas fa-user-graduate"></i> Thông tin giáo viên</div>
                 <div class="section-sub">Hồ sơ chuyên môn và quá trình công tác</div>
                 <div class="teacher-profile">
-                    <div class="teacher-avatar"><i class="fas fa-user-tie"></i></div>
+                    <div class="teacher-avatar">
+                        <img src="https://i.ibb.co/LdNJzdk1/IMG-0001.jpg" alt="Võ Thanh Đậm" />
+                    </div>
                     <div class="teacher-info">
                         <div class="info-grid">
                             <div class="info-item"><span class="label">Ngày sinh</span><span class="value">05/09/1983</span></div>
@@ -225,7 +242,7 @@
             { id: 'cm7', title: 'Sáng kiến: Học mà chơi - Trò chơi ô chữ Tin học', desc: 'Áp dụng cho lớp 3,4', url: '#', category: 'sangkien', type: 'pdf' },
         ];
 
-        // ---- Liên kết (không đổi) ----
+        // ---- Liên kết ----
         const LINKS = [
             { title: 'Bộ Giáo dục và Đào tạo', url: 'https://moet.gov.vn', desc: 'Trang chính của Bộ GD&ĐT' },
             { title: 'VietnamNet - Giáo dục', url: 'https://vietnamnet.vn/giao-duc', desc: 'Tin tức giáo dục mới nhất' },

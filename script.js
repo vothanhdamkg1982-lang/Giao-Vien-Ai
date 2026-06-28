@@ -147,7 +147,6 @@ function renderChuyenMon(filter = 'all') {
         return;
     }
     list.innerHTML = items.map(c => {
-        // Xác định icon dựa trên loại
         let icon = 'fa-file-pdf';
         if (c.type === 'video') icon = 'fa-video';
         else if (c.type === 'image') icon = 'fa-image';
@@ -236,31 +235,19 @@ document.querySelectorAll('.filter-bar').forEach(bar => {
     bar.addEventListener('click', function(e) {
         const btn = e.target.closest('.filter-btn');
         if (!btn) return;
-        // Cập nhật trạng thái active
         this.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
         const filter = btn.dataset.filter;
-        const barId = this.id;
-
-        // Xác định section cha và gọi render tương ứng
         const section = this.closest('.section');
         if (!section) return;
         const sectionId = section.id.replace('section-', '');
 
         switch (sectionId) {
-            case 'photos':
-                renderPhotos(filter);
-                break;
-            case 'videos':
-                renderVideos(filter);
-                break;
-            case 'documents':
-                renderDocuments(filter);
-                break;
-            case 'chuyenmon':
-                renderChuyenMon(filter);
-                break;
+            case 'photos': renderPhotos(filter); break;
+            case 'videos': renderVideos(filter); break;
+            case 'documents': renderDocuments(filter); break;
+            case 'chuyenmon': renderChuyenMon(filter); break;
         }
     });
 });
@@ -283,17 +270,12 @@ document.getElementById('menuToggle').addEventListener('click', function() {
 // ============================================================
 // KHỞI TẠO
 // ============================================================
-// Render ban đầu với filter 'all'
 renderPhotos('all');
 renderVideos('all');
 renderDocuments('all');
 renderChuyenMon('all');
 renderLinks();
 updateBadges();
-
-// Mặc định hiện trang chủ
 switchSection('home');
 
-console.log('✅ Website đã sẵn sàng!');
-console.log('📦 Dữ liệu được khai báo trong file HTML (PHOTOS, VIDEOS, DOCUMENTS, CHUYENMON, LINKS).');
-console.log('💡 Bạn có thể thêm/sửa/xóa trực tiếp trong các mảng đó.');
+console.log('✅ Website đã sẵn sàng với giao diện mới!');
