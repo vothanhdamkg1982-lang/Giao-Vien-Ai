@@ -500,6 +500,7 @@ a:hover {
     flex-wrap: wrap;
     gap: 16px;
     margin-top: 24px;
+    justify-content: center;
 }
 .teacher-tags span {
     background: #e8edf4;
@@ -509,6 +510,8 @@ a:hover {
     align-items: center;
     gap: 10px;
     font-size: 0.95rem;
+     flex: 1;                 /* co giãn đều nhau */
+    text-align: center;      /* căn chữ giữa bên trong */
 }
 .teacher-tags span i {
     color: var(--accent);
