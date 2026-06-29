@@ -180,7 +180,7 @@
             </div>
         </section>
 
-        <!-- KHO ỨNG DỤNG (EXCEL) -->
+        <!-- KHO ỨNG DỤNG (EXCEL) + FORM TÍNH LƯƠNG -->
         <section class="section" id="section-ungdung">
             <div class="card">
                 <div class="section-title"><i class="fas fa-folder"></i> Kho lưu trữ phần mềm ứng dụng</div>
@@ -190,6 +190,165 @@
                 </div>
                 <div class="doc-list" id="ungdungList"></div>
             </div>
+
+            <!-- ========== FORM TÍNH LƯƠNG (ĐÃ CẬP NHẬT TÙY CHỈNH TỶ LỆ) ========== -->
+            <div class="card salary-calculator-card">
+                <div class="section-title"><i class="fas fa-calculator"></i> Bảng tính lương trực tuyến</div>
+                <div class="section-sub">Điều chỉnh hệ số, phụ cấp – tỷ lệ ưu đãi & đặc biệt có thể tùy chỉnh</div>
+
+                <div class="salary-calculator-container" id="salaryApp">
+                    <!-- Grid chính -->
+                    <div class="salary-form-grid">
+                        <!-- Cột input -->
+                        <div class="salary-inputs-section">
+                            <div class="salary-section-title">
+                                ⚙️ Thông số đầu vào
+                                <span>điều chỉnh</span>
+                            </div>
+
+                            <div class="salary-input-row">
+                                <label>Hệ số lương <span class="sub">(D)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="hsLuong" step="0.01" value="4.32" />
+                                </div>
+                            </div>
+                            <div class="salary-input-row">
+                                <label>Phụ cấp chức vụ <span class="sub">(E)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="hsPCCV" step="0.01" value="0" />
+                                </div>
+                            </div>
+                            <div class="salary-input-row">
+                                <label>Phụ cấp khu vực <span class="sub">(F)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="hsPCKV" step="0.01" value="0.5" />
+                                </div>
+                            </div>
+                            <div class="salary-input-row">
+                                <label>Phụ cấp trách nhiệm <span class="sub">(H)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="hsPCTN" step="0.01" value="0" />
+                                </div>
+                            </div>
+                            <div class="salary-input-row">
+                                <label>Thâm niên nghề <span class="sub">(N, %)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="pctn" step="0.5" value="22" />
+                                </div>
+                            </div>
+                            <div class="salary-input-row">
+                                <label>Phụ cấp y tế <span class="sub">(J)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="hsYTe" step="0.01" value="0" />
+                                </div>
+                            </div>
+                            <!-- HAI INPUT MỚI: TỶ LỆ % CHO ƯU ĐÃI VÀ ĐẶC BIỆT -->
+                            <div class="salary-input-row">
+                                <label>Phụ cấp ưu đãi <span class="sub">(%)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="hsUuDaiPct" step="0.5" value="50" />
+                                </div>
+                            </div>
+                            <div class="salary-input-row">
+                                <label>Phụ cấp đặc biệt <span class="sub">(%)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="hsDacBietPct" step="0.5" value="30" />
+                                </div>
+                            </div>
+                            <!-- Lương cơ sở -->
+                            <div class="salary-input-row" style="margin-top: 6px; padding-top: 12px; border-top: 1px dashed #dce3ec;">
+                                <label style="font-weight:600;">Lương cơ sở <span class="sub">(đồng)</span></label>
+                                <div class="salary-input-group">
+                                    <input type="number" id="luongCoSo" step="10000" value="2340000" />
+                                </div>
+                            </div>
+                            <div class="salary-helper">💡 Thay đổi giá trị bên trên, kết quả cập nhật ngay.</div>
+                        </div>
+
+                        <!-- Cột kết quả -->
+                        <div class="salary-results-section">
+                            <div class="salary-section-title">
+                                📊 Kết quả tính toán
+                                <span>chi tiết</span>
+                            </div>
+
+                            <div class="salary-result-item">
+                                <span class="label">Hệ số phụ cấp ưu đãi</span>
+                                <span class="value" id="kqUuDai">0</span>
+                            </div>
+                            <div class="salary-result-item">
+                                <span class="label">Phụ cấp thâm niên nghề</span>
+                                <span class="value" id="kqThamNien">0</span>
+                            </div>
+                            <div class="salary-result-item">
+                                <span class="label">Phụ cấp đặc biệt</span>
+                                <span class="value" id="kqDacBiet">0</span>
+                            </div>
+                            <div class="salary-divider"></div>
+
+                            <div class="salary-result-item">
+                                <span class="label" style="font-weight:600;">Tổng hệ số</span>
+                                <span class="value highlight" id="kqTongHeSo">0</span>
+                            </div>
+                            <div class="salary-result-item">
+                                <span class="label" style="font-weight:600;">Tiền lương tháng</span>
+                                <span class="value bold-lg" id="kqLuongThang">0</span>
+                            </div>
+                            <div class="salary-divider thick"></div>
+
+                            <div class="salary-result-item">
+                                <span class="label">BHXH (8%)</span>
+                                <span class="value negative" id="kqBHXH">0</span>
+                            </div>
+                            <div class="salary-result-item">
+                                <span class="label">BHYT (1.5%)</span>
+                                <span class="value negative" id="kqBHYT">0</span>
+                            </div>
+                            <div class="salary-result-item">
+                                <span class="label">BHTN (1%)</span>
+                                <span class="value negative" id="kqBHTN">0</span>
+                            </div>
+                            <div class="salary-divider"></div>
+
+                            <div class="salary-result-item">
+                                <span class="label" style="font-weight:600;">Tổng trừ vào lương</span>
+                                <span class="value negative bold-lg" id="kqTongTru">0</span>
+                            </div>
+                            <div class="salary-divider thick"></div>
+
+                            <div class="salary-result-item" style="padding: 12px 0 8px;">
+                                <span class="label" style="font-size:18px; font-weight:700; color:#0b1e33;">💵 Thực lãnh</span>
+                                <span class="value positive bold-lg" id="kqThucLanh" style="font-size:26px;">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tóm tắt -->
+                    <div class="salary-summary-grid">
+                        <div class="salary-summary-card">
+                            <div class="label">Tổng hệ số</div>
+                            <div class="amount blue" id="sumHeSo">0</div>
+                        </div>
+                        <div class="salary-summary-card">
+                            <div class="label">Lương tháng</div>
+                            <div class="amount" id="sumLuong">0</div>
+                        </div>
+                        <div class="salary-summary-card">
+                            <div class="label">Thực lãnh</div>
+                            <div class="amount green" id="sumThucLanh">0</div>
+                        </div>
+                    </div>
+
+                    <div class="salary-note">
+                        <strong>📌 Công thức tham khảo (có tùy chỉnh tỷ lệ):</strong>
+                        &nbsp; Ưu đãi = (D+E) × (tỷ lệ %) &nbsp;·&nbsp; Đặc biệt = (D+E) × (tỷ lệ %) &nbsp;·&nbsp; Thâm niên = (D+H)×N/100 &nbsp;·&nbsp;
+                        BHXH = (D+E+I)×LCS×8% &nbsp;·&nbsp; BHYT = (D+E+I)×LCS×1.5% &nbsp;·&nbsp; BHTN = (D+E+I)×LCS×1%
+                        <br style="margin-top:4px; display:block;" />
+                        <span style="color:#4d6a8a;">Trong đó: D = Hệ số lương, E = PC chức vụ, H = PC trách nhiệm, I = Thâm niên, N = % thâm niên, LCS = Lương cơ sở</span>
+                    </div>
+                </div>
+            </div>
+            <!-- ========== KẾT THÚC FORM TÍNH LƯƠNG ========== -->
         </section>
 
         <!-- LIÊN KẾT -->
@@ -304,7 +463,6 @@
         ];
 
         // ---- Ứng dụng Excel (Google Sheets) ----
-        // THAY THẾ fileId BẰNG ID THỰC CỦA BẠN
         const UNGDUNG = [
             { 
                 id: 'ex1', 

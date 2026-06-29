@@ -358,6 +358,87 @@ document.getElementById('menuToggle').addEventListener('click', function() {
     document.getElementById('navLinks').classList.toggle('open');
 });
 
+// ============================================================
+// TÍNH LƯƠNG – NHÚNG TRONG SECTION UNGDUNG (ĐÃ CẬP NHẬT TÙY CHỈNH TỶ LỆ)
+// ============================================================
+function calculateSalary() {
+    // Lấy các input
+    const hsLuong = document.getElementById('hsLuong');
+    const hsPCCV = document.getElementById('hsPCCV');
+    const hsPCKV = document.getElementById('hsPCKV');
+    const hsPCTN = document.getElementById('hsPCTN');
+    const pctn = document.getElementById('pctn');
+    const hsYTe = document.getElementById('hsYTe');
+    const hsUuDaiPct = document.getElementById('hsUuDaiPct');
+    const hsDacBietPct = document.getElementById('hsDacBietPct');
+    const luongCoSo = document.getElementById('luongCoSo');
+
+    // Nếu không có các phần tử này (ví dụ không nằm trong trang) thì thoát
+    if (!hsLuong) return;
+
+    // Đọc giá trị
+    const D = parseFloat(hsLuong.value) || 0;
+    const E = parseFloat(hsPCCV.value) || 0;
+    const F = parseFloat(hsPCKV.value) || 0;
+    const H = parseFloat(hsPCTN.value) || 0;
+    const N = parseFloat(pctn.value) || 0;
+    const J = parseFloat(hsYTe.value) || 0;
+    const uuDaiPct = parseFloat(hsUuDaiPct.value) || 0;
+    const dacBietPct = parseFloat(hsDacBietPct.value) || 0;
+    const LCS = parseFloat(luongCoSo.value) || 0;
+
+    // Hàm làm tròn
+    const round4 = (v) => Math.round(v * 10000) / 10000;
+    const round0 = (v) => Math.round(v);
+
+    // Tính các hệ số phụ cấp theo tỷ lệ tùy chỉnh
+    const uuDai = round4((D + E) * (uuDaiPct / 100));
+    const thamNien = round4((D + H) * N / 100);
+    const dacBiet = round4((D + E) * (dacBietPct / 100));
+    const tongHeSo = round4(D + E + F + uuDai + H + thamNien + J + dacBiet);
+    const luongThang = round0(tongHeSo * LCS);
+    const baseBH = D + E + thamNien; // I = thamNien
+    const bhxh = round0(baseBH * LCS * 0.08);
+    const bhyt = round0(baseBH * LCS * 0.015);
+    const bhtn = round0(baseBH * LCS * 0.01);
+    const tongTru = bhxh + bhyt + bhtn;
+    const thucLanh = luongThang - tongTru;
+
+    // Cập nhật kết quả
+    const formatNum = (v, d = 4) => Number(v).toFixed(d);
+    const formatCurrency = (v) => Math.round(v).toLocaleString('vi-VN');
+
+    document.getElementById('kqUuDai').textContent = formatNum(uuDai);
+    document.getElementById('kqThamNien').textContent = formatNum(thamNien);
+    document.getElementById('kqDacBiet').textContent = formatNum(dacBiet);
+    document.getElementById('kqTongHeSo').textContent = formatNum(tongHeSo, 4);
+    document.getElementById('kqLuongThang').textContent = formatCurrency(luongThang) + ' ₫';
+    document.getElementById('kqBHXH').textContent = formatCurrency(bhxh) + ' ₫';
+    document.getElementById('kqBHYT').textContent = formatCurrency(bhyt) + ' ₫';
+    document.getElementById('kqBHTN').textContent = formatCurrency(bhtn) + ' ₫';
+    document.getElementById('kqTongTru').textContent = formatCurrency(tongTru) + ' ₫';
+    document.getElementById('kqThucLanh').textContent = formatCurrency(thucLanh) + ' ₫';
+
+    // Summary
+    document.getElementById('sumHeSo').textContent = formatNum(tongHeSo, 4);
+    document.getElementById('sumLuong').textContent = formatCurrency(luongThang) + ' ₫';
+    document.getElementById('sumThucLanh').textContent = formatCurrency(thucLanh) + ' ₫';
+}
+
+// Gắn sự kiện cho các input trong form tính lương
+function initSalaryCalculator() {
+    const inputs = ['hsLuong', 'hsPCCV', 'hsPCKV', 'hsPCTN', 'pctn', 'hsYTe', 'hsUuDaiPct', 'hsDacBietPct', 'luongCoSo'];
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', calculateSalary);
+            el.addEventListener('change', calculateSalary);
+        }
+    });
+    // Tính lần đầu
+    calculateSalary();
+}
+
 // === KHỞI TẠO ===
 document.addEventListener('DOMContentLoaded', function() {
     renderBanner();
@@ -369,5 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderLinks();
     updateBadges();
     switchSection('home');
-    console.log('✅ Website đã sẵn sàng với kho ứng dụng Excel!');
+    // Khởi tạo form tính lương
+    initSalaryCalculator();
+    console.log('✅ Website đã sẵn sàng với kho ứng dụng Excel và form tính lương tùy chỉnh!');
 });
