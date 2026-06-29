@@ -26,6 +26,7 @@
                 <li><button data-section="videos"><i class="fas fa-video"></i> Kho video <span class="badge" id="videoCount">0</span></button></li>
                 <li><button data-section="documents"><i class="fas fa-folder-open"></i> Tài liệu <span class="badge" id="docCount">0</span></button></li>
                 <li><button data-section="chuyenmon"><i class="fas fa-folder"></i> Chuyên môn <span class="badge" id="chuyenmonCount">0</span></button></li>
+                <li><button data-section="ungdung"><i class="fas fa-laptop"></i> Phần mềm ứng dụng <span class="badge" id="ungdungCount">0</span></button></li>
                 <li><button data-section="links"><i class="fas fa-link"></i> Liên kết</button></li>
             </ul>
         </nav>
@@ -174,6 +175,21 @@
             </div>
         </section>
 
+        <!-- KHO ỨNG DỤNG -->
+        <section class="section" id="section-ungdung">
+            <div class="card">
+                <div class="section-title"><i class="fas fa-folder"></i> Kho lưu trữ phần mềm ứng dụng</div>
+                <div class="section-sub">Kế hoạch giảng dạy, phần mềm kiểm phiếu, phần mềm quản lý tiền lương</div>
+                <div class="filter-bar" id="ungdungFilterBar">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="giaoan">Kế hoạch giảng dạy</button>
+                    <button class="filter-btn" data-filter="dethi">Phần mềm kiểm phiếu</button>
+                    <button class="filter-btn" data-filter="sangkien">Phần mềm quản lý tiền lương</button>
+                </div>
+                <div class="doc-list" id="ungdungList"></div>
+            </div>
+        </section>
+
         <!-- LIÊN KẾT -->
         <section class="section" id="section-links">
             <div class="card">
@@ -245,6 +261,13 @@
             { id: 'cm5', title: 'Đề thi học kỳ 2 - Tin học 4', desc: 'Năm học 2024-2025', url: '#', category: 'dethi', type: 'pdf' },
             { id: 'cm6', title: 'Sáng kiến kinh nghiệm: Ứng dụng CNTT trong dạy học', desc: 'Giải A cấp huyện', url: '#', category: 'sangkien', type: 'pdf' },
             { id: 'cm7', title: 'Sáng kiến: Học mà chơi - Trò chơi ô chữ Tin học', desc: 'Áp dụng cho lớp 3,4', url: '#', category: 'sangkien', type: 'pdf' },
+        ];
+
+          // --- Ứng dụng Excel ---
+        const UNGDUNG = [
+            { id: 'ex1', title: 'Kế hoạch giáo dục - Lịch báo giảng tự động', desc: 'Excel tự động tính lịch theo tuần', url: '/files/ex1.xlsx', category: 'ungdung', type: 'xlsx' },
+            { id: 'ex2', title: 'Bảng kiểm phiếu', desc: 'Tổng hợp phiếu bầu tự động', url: '/files/ex2.xlsx', category: 'ungdung', type: 'xlsx' },
+            { id: 'ex3', title: 'Quản lý bảng lương', desc: 'Tính lương, bảo hiểm, thuế', url: '/files/ex3.xlsx', category: 'ungdung', type: 'xlsx' },
         ];
 
         // ---- Liên kết ----
