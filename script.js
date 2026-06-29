@@ -2,47 +2,7 @@
    QUẢN LÝ TRANG THÁI & RENDER
    ============================================================ */
 
-// ===== Chuyển đổi section =====
-function switchSection(sectionId) {
-    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-    const target = document.getElementById('section-' + sectionId);
-    if (target) target.classList.add('active');
-
-    document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
-    const btn = document.querySelector(`.nav-links button[data-section="${sectionId}"]`);
-    if (btn) btn.classList.add('active');
-
-    document.getElementById('navLinks').classList.remove('open');
-
-    if (sectionId === 'photos') renderPhotos(getActiveFilter('photoFilterBar'));
-    if (sectionId === 'videos') renderVideos(getActiveFilter('videoFilterBar'));
-    if (sectionId === 'documents') renderDocuments(getActiveFilter('docFilterBar'));
-    if (sectionId === 'chuyenmon') renderChuyenMon(getActiveFilter('chuyenmonFilterBar'));
-    if (sectionId === 'links') renderLinks();
-}
-
-// ===== Lấy filter đang active =====
-function getActiveFilter(barId) {
-    const bar = document.getElementById(barId);
-    if (!bar) return 'all';
-    const activeBtn = bar.querySelector('.filter-btn.active');
-    return activeBtn ? activeBtn.dataset.filter : 'all';
-}
-
-// ===== Cập nhật số lượng badge =====
-function updateBadges() {
-    document.getElementById('photoCount').textContent = PHOTOS.length;
-    document.getElementById('videoCount').textContent = VIDEOS.length;
-    document.getElementById('docCount').textContent = DOCUMENTS.length;
-    document.getElementById('chuyenmonCount').textContent = CHUYENMON.length;
-    document.getElementById('homePhotoCount').textContent = PHOTOS.length;
-    document.getElementById('homeVideoCount').textContent = VIDEOS.length;
-    document.getElementById('homeDocCount').textContent = DOCUMENTS.length;
-}
-
-// ============================================================
-// BANNER SLIDER NÂNG CẤP
-// ============================================================
+// === BANNER SLIDER ===
 let currentSlide = 0;
 let slideInterval;
 
@@ -51,14 +11,9 @@ function renderBanner() {
     const dotsContainer = document.getElementById('bannerDots');
 
     wrapper.innerHTML = SLIDES.map((slide, index) => {
-        // Kiểm tra nếu có avatar thì hiển thị
         let avatarHtml = '';
         if (slide.avatar) {
-            avatarHtml = `
-                <div class="banner-avatar">
-                    <img src="${slide.avatar}" alt="Võ Thanh Đậm" />
-                </div>
-            `;
+            avatarHtml = `<div class="banner-avatar"><img src="${slide.avatar}" alt="Võ Thanh Đậm" /></div>`;
         }
         return `
             <div class="banner-slide ${index === 0 ? 'active' : ''}" 
@@ -74,12 +29,10 @@ function renderBanner() {
         `;
     }).join('');
 
-    // Tạo dots
     dotsContainer.innerHTML = SLIDES.map((_, index) => `
         <span class="banner-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
     `).join('');
 
-    // Gắn sự kiện cho dots
     document.querySelectorAll('.banner-dot').forEach(dot => {
         dot.addEventListener('click', function() {
             const index = parseInt(this.dataset.index);
@@ -87,11 +40,9 @@ function renderBanner() {
         });
     });
 
-    // Nút điều hướng
     document.getElementById('bannerPrev').addEventListener('click', () => goToSlide(currentSlide - 1));
     document.getElementById('bannerNext').addEventListener('click', () => goToSlide(currentSlide + 1));
 
-    // Tự động chạy
     startAutoSlide();
 }
 
@@ -125,12 +76,45 @@ function resetAutoSlide() {
     startAutoSlide();
 }
 
-// Khởi tạo banner khi trang load
-document.addEventListener('DOMContentLoaded', function() {
-    renderBanner();
-});
+// === CHUYỂN SECTION ===
+function switchSection(sectionId) {
+    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById('section-' + sectionId);
+    if (target) target.classList.add('active');
 
-// ===== Render ẢNH (có lọc) =====
+    document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+    const btn = document.querySelector(`.nav-links button[data-section="${sectionId}"]`);
+    if (btn) btn.classList.add('active');
+
+    document.getElementById('navLinks').classList.remove('open');
+
+    if (sectionId === 'photos') renderPhotos(getActiveFilter('photoFilterBar'));
+    if (sectionId === 'videos') renderVideos(getActiveFilter('videoFilterBar'));
+    if (sectionId === 'documents') renderDocuments(getActiveFilter('docFilterBar'));
+    if (sectionId === 'chuyenmon') renderChuyenMon(getActiveFilter('chuyenmonFilterBar'));
+    if (sectionId === 'ungdung') renderUngDung(getActiveFilter('ungdungFilterBar'));
+    if (sectionId === 'links') renderLinks();
+}
+
+function getActiveFilter(barId) {
+    const bar = document.getElementById(barId);
+    if (!bar) return 'all';
+    const activeBtn = bar.querySelector('.filter-btn.active');
+    return activeBtn ? activeBtn.dataset.filter : 'all';
+}
+
+function updateBadges() {
+    document.getElementById('photoCount').textContent = PHOTOS.length;
+    document.getElementById('videoCount').textContent = VIDEOS.length;
+    document.getElementById('docCount').textContent = DOCUMENTS.length;
+    document.getElementById('chuyenmonCount').textContent = CHUYENMON.length;
+    document.getElementById('ungdungCount').textContent = UNGDUNG.length;
+    document.getElementById('homePhotoCount').textContent = PHOTOS.length;
+    document.getElementById('homeVideoCount').textContent = VIDEOS.length;
+    document.getElementById('homeDocCount').textContent = DOCUMENTS.length;
+}
+
+// === RENDER ẢNH ===
 function renderPhotos(filter = 'all') {
     const grid = document.getElementById('photoGrid');
     let items = PHOTOS;
@@ -154,7 +138,6 @@ function renderPhotos(filter = 'all') {
         </div>
     `).join('');
 
-    // Lightbox
     document.querySelectorAll('#photoGrid .gallery-item img').forEach((img) => {
         img.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -166,7 +149,7 @@ function renderPhotos(filter = 'all') {
     });
 }
 
-// ===== Render VIDEO (có lọc) =====
+// === RENDER VIDEO ===
 function renderVideos(filter = 'all') {
     const grid = document.getElementById('videoGrid');
     let items = VIDEOS;
@@ -195,7 +178,7 @@ function renderVideos(filter = 'all') {
     }).join('');
 }
 
-// ===== Render TÀI LIỆU (có lọc) =====
+// === RENDER TÀI LIỆU ===
 function renderDocuments(filter = 'all') {
     const list = document.getElementById('docList');
     let items = DOCUMENTS;
@@ -222,7 +205,7 @@ function renderDocuments(filter = 'all') {
     `).join('');
 }
 
-// ===== Render CHUYÊN MÔN (có lọc) =====
+// === RENDER CHUYÊN MÔN ===
 function renderChuyenMon(filter = 'all') {
     const list = document.getElementById('chuyenmonList');
     let items = CHUYENMON;
@@ -234,8 +217,8 @@ function renderChuyenMon(filter = 'all') {
     }
     list.innerHTML = items.map(c => {
         let icon = 'fa-file-pdf';
-        if (c.type === 'video') icon = 'fa-video';
-        else if (c.type === 'image') icon = 'fa-image';
+        if (c.type === 'xlsx') icon = 'fa-file-excel';
+        else if (c.type === 'docx') icon = 'fa-file-word';
         return `
             <div class="doc-item">
                 <div class="doc-info">
@@ -247,14 +230,42 @@ function renderChuyenMon(filter = 'all') {
                 </div>
                 <div class="doc-actions">
                     <a href="${c.url}" target="_blank" rel="noopener"><i class="fas fa-eye"></i> Xem</a>
-                    <a href="${c.url}" download="${c.title || 'chuyenmon'}.pdf"><i class="fas fa-download"></i> Tải xuống</a>
+                    <a href="${c.url}" download="${c.title || 'chuyenmon'}.${c.type}"><i class="fas fa-download"></i> Tải xuống</a>
                 </div>
             </div>
         `;
     }).join('');
 }
 
-// ===== Render LIÊN KẾT =====
+// === RENDER ỨNG DỤNG (EXCEL) ===
+function renderUngDung(filter = 'all') {
+    const list = document.getElementById('ungdungList');
+    let items = UNGDUNG;
+    if (filter !== 'all') items = items.filter(u => u.category === filter);
+
+    if (!items.length) {
+        list.innerHTML = `<div class="empty-state"><i class="fas fa-file-excel"></i><p>Không có ứng dụng nào.</p></div>`;
+        return;
+    }
+
+    list.innerHTML = items.map(u => `
+        <div class="doc-item">
+            <div class="doc-info">
+                <i class="fas fa-file-excel" style="color: #217346;"></i>
+                <div>
+                    <div class="doc-title">${u.title || 'Ứng dụng Excel'}</div>
+                    <div class="doc-desc">${u.desc || ''}</div>
+                </div>
+            </div>
+            <div class="doc-actions">
+                <a href="${u.preview}" target="_blank" rel="noopener"><i class="fas fa-eye"></i> Xem trước</a>
+                <a href="${u.download}" download="${u.title || 'ungdung'}.xlsx"><i class="fas fa-download"></i> Tải xuống</a>
+            </div>
+        </div>
+    `).join('');
+}
+
+// === RENDER LIÊN KẾT ===
 function renderLinks() {
     const grid = document.getElementById('linksGrid');
     if (!LINKS || !LINKS.length) {
@@ -275,7 +286,7 @@ function renderLinks() {
     `).join('');
 }
 
-// ===== Helper: lấy embed URL cho video =====
+// === HELPER: embed URL ===
 function getEmbedUrl(url) {
     if (!url) return 'about:blank';
     let match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
@@ -286,9 +297,7 @@ function getEmbedUrl(url) {
     return url;
 }
 
-// ============================================================
-// LIGHTBOX (toàn màn hình)
-// ============================================================
+// === LIGHTBOX ===
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
 const lightboxCaption = document.getElementById('lightboxCaption');
@@ -314,9 +323,7 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
 });
 
-// ============================================================
-// FILTER BUTTONS
-// ============================================================
+// === FILTER BUTTONS ===
 document.querySelectorAll('.filter-bar').forEach(bar => {
     bar.addEventListener('click', function(e) {
         const btn = e.target.closest('.filter-btn');
@@ -334,13 +341,12 @@ document.querySelectorAll('.filter-bar').forEach(bar => {
             case 'videos': renderVideos(filter); break;
             case 'documents': renderDocuments(filter); break;
             case 'chuyenmon': renderChuyenMon(filter); break;
+            case 'ungdung': renderUngDung(filter); break;
         }
     });
 });
 
-// ============================================================
-// NAVIGATION EVENTS
-// ============================================================
+// === NAVIGATION EVENTS ===
 document.querySelectorAll('.nav-links button').forEach(btn => {
     btn.addEventListener('click', function() {
         const section = this.dataset.section;
@@ -348,20 +354,20 @@ document.querySelectorAll('.nav-links button').forEach(btn => {
     });
 });
 
-// Menu mobile
 document.getElementById('menuToggle').addEventListener('click', function() {
     document.getElementById('navLinks').classList.toggle('open');
 });
 
-// ============================================================
-// KHỞI TẠO
-// ============================================================
-renderPhotos('all');
-renderVideos('all');
-renderDocuments('all');
-renderChuyenMon('all');
-renderLinks();
-updateBadges();
-switchSection('home');
-
-console.log('✅ Website đã sẵn sàng với banner động nâng cấp!');
+// === KHỞI TẠO ===
+document.addEventListener('DOMContentLoaded', function() {
+    renderBanner();
+    renderPhotos('all');
+    renderVideos('all');
+    renderDocuments('all');
+    renderChuyenMon('all');
+    renderUngDung('all');
+    renderLinks();
+    updateBadges();
+    switchSection('home');
+    console.log('✅ Website đã sẵn sàng với kho ứng dụng Excel!');
+});

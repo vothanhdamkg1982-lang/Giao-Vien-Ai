@@ -178,16 +178,13 @@
             </div>
         </section>
 
-        <!-- KHO ỨNG DỤNG -->
+        <!-- KHO ỨNG DỤNG (EXCEL) -->
         <section class="section" id="section-ungdung">
             <div class="card">
                 <div class="section-title"><i class="fas fa-folder"></i> Kho lưu trữ phần mềm ứng dụng</div>
                 <div class="section-sub">Kế hoạch giảng dạy, phần mềm kiểm phiếu, phần mềm quản lý tiền lương</div>
                 <div class="filter-bar" id="ungdungFilterBar">
                     <button class="filter-btn active" data-filter="all">Tất cả</button>
-                    <button class="filter-btn" data-filter="giaoan">Kế hoạch giảng dạy</button>
-                    <button class="filter-btn" data-filter="dethi">Phần mềm kiểm phiếu</button>
-                    <button class="filter-btn" data-filter="sangkien">Phần mềm quản lý tiền lương</button>
                 </div>
                 <div class="doc-list" id="ungdungList"></div>
             </div>
@@ -217,10 +214,46 @@
     </footer>
 
     <!-- ============================================================
-    DỮ LIỆU MẪU (có phân loại)
+    DỮ LIỆU MẪU
     ============================================================ -->
     <script>
-        // ---- Ảnh (có category) ----
+        // ---- Slide cho banner động ----
+        const SLIDES = [
+            {
+                title: 'Võ Thanh Đậm',
+                desc: 'Giáo viên Tin học • Trường Tiểu học Trần Quốc Toản',
+                btnText: 'Tìm hiểu thêm',
+                btnLink: '#section-teacher',
+                bg: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=1600&q=80',
+                avatar: 'https://i.ibb.co/GQywpxZS/IMG-0030.jpg'
+            },
+            {
+                title: 'Máy tính & Lập trình',
+                desc: 'Khơi nguồn sáng tạo với công nghệ thông tin',
+                btnText: 'Khám phá',
+                btnLink: '#section-chuyenmon',
+                bg: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=80',
+                avatar: null
+            },
+            {
+                title: 'Học sinh & Công nghệ',
+                desc: 'Ứng dụng CNTT trong giảng dạy và học tập',
+                btnText: 'Xem kho ảnh',
+                btnLink: '#section-photos',
+                bg: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80',
+                avatar: null
+            },
+            {
+                title: '24 năm cống hiến',
+                desc: 'Tận tâm với sự nghiệp trồng người',
+                btnText: 'Xem thành tích',
+                btnLink: '#section-documents',
+                bg: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600&q=80',
+                avatar: null
+            }
+        ];
+
+        // ---- Ảnh ----
         const PHOTOS = [
             { id: 'p1', url: 'https://i.ibb.co/tPXW5C8V/7cecf5215ca5f65fafebfe3fabc3ff0d.jpg', title: 'Lớp học Tin học', desc: 'Giờ thực hành tại phòng máy', category: 'giangday' },
             { id: 'p2', url: 'https://picsum.photos/seed/teacher/600/400', title: 'Giáo viên Võ Thanh Đậm', desc: 'Trong giờ lên lớp', category: 'giangday' },
@@ -228,13 +261,13 @@
             { id: 'p4', url: 'https://picsum.photos/seed/students/600/400', title: 'Học sinh thực hành', desc: 'Các em đang làm bài tập', category: 'hoatdong' },
         ];
 
-        // ---- Video (có category) ----
+        // ---- Video ----
         const VIDEOS = [
             { id: 'v1', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', title: 'Video giới thiệu', desc: 'Video mẫu về giảng dạy', category: 'giangday' },
             { id: 'v2', url: 'https://www.youtube.com/watch?v=3JZ_D3ELwOQ', title: 'Học Tin học vui', desc: 'Bài giảng thú vị', category: 'hoatdong' },
         ];
 
-        // ---- Tài liệu (có category) ----
+        // ---- Tài liệu (PDF) ----
         const DOCUMENTS = [
             { id: 'd1', url: 'https://drive.google.com/file/d/1Wp_pWeOQuE5WUtKADi0VLK05qKqUhFfm/view?usp=sharing', title: 'Danh hiệu', desc: 'Chiến sĩ thi đua cơ sở 2013', category: 'khenthuong' },
             { id: 'd2', url: 'https://drive.google.com/file/d/1JgOg-gRh2f4GEBYIGdkTuKJ6-4fzjqCp/view?usp=sharing', title: 'Danh hiệu', desc: 'Chiến sĩ thi đua cơ sở 2017', category: 'khenthuong' },
@@ -255,7 +288,7 @@
             { id: 'd17', url: 'https://drive.google.com/file/d/1ZRLaI8SEXsr1-fqiQ7Jy-MMmHPiy3FQo/view?usp=sharing', title: 'Quyết định', desc: 'Nâng phụ cấp thâm niên Ngạch GVTH Hạng III(V.07.03.29) từ 21% lên 22% từ 01/06/2025', category: 'quyetdinh' },
         ];
 
-        // ---- Chuyên môn (giáo án, đề thi, sáng kiến) ----
+        // ---- Chuyên môn ----
         const CHUYENMON = [
             { id: 'cm1', title: 'Giáo án Tin học lớp 3 - Bài 1', desc: 'Làm quen với máy tính', url: '#', category: 'giaoan', type: 'pdf' },
             { id: 'cm2', title: 'Giáo án Tin học lớp 4 - Bài 5', desc: 'Sử dụng công cụ vẽ', url: '#', category: 'giaoan', type: 'pdf' },
@@ -266,11 +299,36 @@
             { id: 'cm7', title: 'Sáng kiến: Học mà chơi - Trò chơi ô chữ Tin học', desc: 'Áp dụng cho lớp 3,4', url: '#', category: 'sangkien', type: 'pdf' },
         ];
 
-        // --- Ứng dụng Excel ---
+        // ---- Ứng dụng Excel (Google Sheets) ----
+        // THAY THẾ fileId BẰNG ID THỰC CỦA BẠN
         const UNGDUNG = [
-            { id: 'ex1', title: 'Kế hoạch giáo dục - Lịch báo giảng tự động', desc: 'Excel tự động tính lịch theo tuần', url: '/files/ex1.xlsx', category: 'ungdung', type: 'xlsx' },
-            { id: 'ex2', title: 'Bảng kiểm phiếu', desc: 'Tổng hợp phiếu bầu tự động', url: '/files/ex2.xlsx', category: 'ungdung', type: 'xlsx' },
-            { id: 'ex3', title: 'Quản lý bảng lương', desc: 'Tính lương, bảo hiểm, thuế', url: '/files/ex3.xlsx', category: 'ungdung', type: 'xlsx' },
+            { 
+                id: 'ex1', 
+                title: 'Kế hoạch giáo dục - Lịch báo giảng tự động', 
+                desc: 'Excel tự động tính lịch theo tuần', 
+                preview: 'https://docs.google.com/spreadsheets/d/1dMFQZTNXR3a5GP-RqOuSLsjcZ7kcHYRfLEMHuteWpMM/preview', 
+                download: 'https://docs.google.com/spreadsheets/d/1dMFQZTNXR3a5GP-RqOuSLsjcZ7kcHYRfLEMHuteWpMM/export?format=xlsx',
+                category: 'ungdung', 
+                type: 'xlsx' 
+            },
+            { 
+                id: 'ex2', 
+                title: 'Bảng kiểm phiếu', 
+                desc: 'Tổng hợp phiếu bầu tự động', 
+                preview: 'https://docs.google.com/spreadsheets/d/2dMFQZTNXR3a5GP-RqOuSLsjcZ7kcHYRfLEMHuteWpMM/preview', 
+                download: 'https://docs.google.com/spreadsheets/d/2dMFQZTNXR3a5GP-RqOuSLsjcZ7kcHYRfLEMHuteWpMM/export?format=xlsx',
+                category: 'ungdung', 
+                type: 'xlsx' 
+            },
+            { 
+                id: 'ex3', 
+                title: 'Quản lý bảng lương', 
+                desc: 'Tính lương, bảo hiểm, thuế', 
+                preview: 'https://docs.google.com/spreadsheets/d/3dMFQZTNXR3a5GP-RqOuSLsjcZ7kcHYRfLEMHuteWpMM/preview',
+                download: 'https://docs.google.com/spreadsheets/d/3dMFQZTNXR3a5GP-RqOuSLsjcZ7kcHYRfLEMHuteWpMM/export?format=xlsx',
+                category: 'ungdung', 
+                type: 'xlsx' 
+            }
         ];
 
         // ---- Liên kết ----
@@ -283,43 +341,6 @@
             { title: 'Bồi dưỡng Giáo viên Phổ thông', url: 'https://taphuan.csdl.edu.vn', desc: 'Quản lý cơ sở giáo dục' },
             { title: 'VNEDU Trần Quốc Toản', url: 'https://ucnnzccazsgdkiengiang.vnedu.vn', desc: 'Quản lý học sinh' },
             { title: 'Đại học Trà Vinh', url: 'https://lms2tvu.onschool.edu.vn/', desc: 'Khóa học trực tuyến' },
-        ];
-
-        // ---- Slide cho banner động (có ảnh đại diện nổi bật) ----
-        const SLIDES = [
-            {
-                title: 'Võ Thanh Đậm',
-                desc: 'Giáo viên Tin học • Trường Tiểu học Trần Quốc Toản',
-                btnText: 'Tìm hiểu thêm',
-                btnLink: '#section-teacher',
-                bg: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=1600&q=80', // Học sinh + công nghệ
-                // Ảnh đại diện nổi bật
-                avatar: 'https://i.ibb.co/GQywpxZS/IMG-0030.jpg'
-            },
-            {
-                title: 'Máy tính & Lập trình',
-                desc: 'Khơi nguồn sáng tạo với công nghệ thông tin',
-                btnText: 'Khám phá',
-                btnLink: '#section-chuyenmon',
-                bg: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=80', // Lập trình
-                avatar: null
-            },
-            {
-                title: 'Học sinh & Công nghệ',
-                desc: 'Ứng dụng CNTT trong giảng dạy và học tập',
-                btnText: 'Xem kho ảnh',
-                btnLink: '#section-photos',
-                bg: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80', // Học sinh với máy tính
-                avatar: null
-            },
-            {
-                title: '24 năm cống hiến',
-                desc: 'Tận tâm với sự nghiệp trồng người',
-                btnText: 'Xem thành tích',
-                btnLink: '#section-documents',
-                bg: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600&q=80', // Sách vở
-                avatar: null
-            }
         ];
     </script>
 

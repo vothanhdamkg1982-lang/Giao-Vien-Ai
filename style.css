@@ -191,14 +191,12 @@ a:hover {
     padding: 20px;
     z-index: 1;
 }
-
 .banner-slide.active {
     opacity: 1;
     transform: scale(1);
     z-index: 2;
 }
 
-/* Lớp phủ gradient mượt mà */
 .banner-slide::before {
     content: '';
     position: absolute;
@@ -210,7 +208,6 @@ a:hover {
     z-index: 1;
 }
 
-/* Nội dung slide */
 .banner-content {
     position: relative;
     z-index: 2;
@@ -219,7 +216,6 @@ a:hover {
     padding: 20px;
 }
 
-/* Avatar nổi bật trên nền mờ */
 .banner-avatar {
     width: 160px;
     height: 160px;
@@ -285,7 +281,6 @@ a:hover {
     color: #fff;
 }
 
-/* Nút điều hướng */
 .banner-btn {
     position: absolute;
     top: 50%;
@@ -315,7 +310,6 @@ a:hover {
     right: 20px;
 }
 
-/* Dấu chấm (dots) */
 .banner-dots {
     position: absolute;
     bottom: 30px;
@@ -496,7 +490,6 @@ a:hover {
     color: var(--primary);
 }
 
-/* Highlight */
 .info-highlight {
     background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: #fff;
@@ -541,7 +534,6 @@ a:hover {
     color: #fff;
 }
 
-/* Stats grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -639,8 +631,8 @@ a:hover {
     align-items: center;
     gap: 10px;
     font-size: 0.95rem;
-     flex: 1;
-     width: 100%;
+    flex: 1;
+    width: 100%;
     text-align: center;
 }
 .teacher-tags span i {
@@ -648,7 +640,7 @@ a:hover {
 }
 
 /* ============================================================
-   KHO ẢNH / VIDEO (LƯỚI)
+   KHO ẢNH / VIDEO
    ============================================================ */
 .gallery-grid {
     display: grid;
@@ -712,7 +704,6 @@ a:hover {
     color: #fff;
 }
 
-/* Video wrapper */
 .video-wrapper {
     position: relative;
     padding-bottom: 56.25%;
@@ -729,7 +720,7 @@ a:hover {
 }
 
 /* ============================================================
-   KHO TÀI LIỆU & CHUYÊN MÔN (DANH SÁCH)
+   KHO TÀI LIỆU & CHUYÊN MÔN & ỨNG DỤNG
    ============================================================ */
 .doc-list {
     display: flex;
@@ -800,7 +791,7 @@ a:hover {
 }
 
 /* ============================================================
-   LIÊN KẾT WEBSITE (LƯỚI)
+   LIÊN KẾT
    ============================================================ */
 .links-grid {
     display: grid;
@@ -854,7 +845,7 @@ a:hover {
 }
 
 /* ============================================================
-   LIGHTBOX (toàn màn hình)
+   LIGHTBOX
    ============================================================ */
 .lightbox {
     display: none;
