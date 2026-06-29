@@ -148,12 +148,12 @@ a:hover {
 }
 
 /* ============================================================
-   BANNER ĐỘNG (SLIDER)
+   BANNER ĐỘNG (SLIDER) – NÂNG CẤP
    ============================================================ */
 .banner {
     position: relative;
     width: 100%;
-    min-height: 50vh;
+    min-height: 55vh;
     overflow: hidden;
     background: #0f1a2b;
 }
@@ -162,13 +162,13 @@ a:hover {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 50vh;
+    min-height: 55vh;
 }
 
 .banner-slides-wrapper {
     width: 100%;
     height: 100%;
-    min-height: 50vh;
+    min-height: 55vh;
     position: relative;
 }
 
@@ -178,7 +178,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    min-height: 50vh;
+    min-height: 55vh;
     background-size: cover;
     background-position: center;
     opacity: 0;
@@ -189,6 +189,7 @@ a:hover {
     justify-content: center;
     text-align: center;
     padding: 20px;
+    z-index: 1;
 }
 
 .banner-slide.active {
@@ -197,7 +198,7 @@ a:hover {
     z-index: 2;
 }
 
-/* Lớp phủ gradient mềm mại */
+/* Lớp phủ gradient mượt mà */
 .banner-slide::before {
     content: '';
     position: absolute;
@@ -205,16 +206,39 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(30, 58, 95, 0.7) 0%, rgba(230, 126, 34, 0.4) 100%);
+    background: linear-gradient(135deg, rgba(30, 58, 95, 0.75) 0%, rgba(230, 126, 34, 0.4) 100%);
     z-index: 1;
 }
 
+/* Nội dung slide */
 .banner-content {
     position: relative;
     z-index: 2;
     color: #fff;
     max-width: 800px;
     padding: 20px;
+}
+
+/* Avatar nổi bật trên nền mờ */
+.banner-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 4px solid var(--accent-light);
+    box-shadow: 0 0 40px rgba(230, 126, 34, 0.6), 0 0 80px rgba(0,0,0,0.3);
+    margin: 0 auto 20px;
+    overflow: hidden;
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+.banner-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.banner-avatar:hover {
+    transform: scale(1.05);
 }
 
 .banner-content h1 {
@@ -229,6 +253,7 @@ a:hover {
     font-size: 1.3rem;
     opacity: 0;
     animation: fadeInUp 1s ease 0.3s forwards;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 .banner-content .btn-banner {
     opacity: 0;
@@ -290,7 +315,7 @@ a:hover {
     right: 20px;
 }
 
-/* Dấu chấm */
+/* Dấu chấm (dots) */
 .banner-dots {
     position: absolute;
     bottom: 30px;
@@ -614,8 +639,8 @@ a:hover {
     align-items: center;
     gap: 10px;
     font-size: 0.95rem;
-    flex: 1;
-    width: 100%;
+     flex: 1;
+     width: 100%;
     text-align: center;
 }
 .teacher-tags span i {
@@ -952,6 +977,10 @@ a:hover {
         font-size: 1.5rem;
         padding: 8px 12px;
     }
+    .banner-avatar {
+        width: 120px;
+        height: 120px;
+    }
     .hero-avatar {
         flex: 0 0 120px;
         width: 120px;
@@ -1011,6 +1040,10 @@ a:hover {
     .banner-dot {
         width: 12px;
         height: 12px;
+    }
+    .banner-avatar {
+        width: 100px;
+        height: 100px;
     }
     .hero {
         flex-direction: column;
