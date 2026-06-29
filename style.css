@@ -148,7 +148,6 @@ a:hover {
 }
 
 /* ============================================================
-   /* ============================================================
    BANNER ĐỘNG (SLIDER)
    ============================================================ */
 .banner {
@@ -156,7 +155,7 @@ a:hover {
     width: 100%;
     min-height: 50vh;
     overflow: hidden;
-    background: #0f1a2b; /* màu nền dự phòng */
+    background: #0f1a2b;
 }
 
 .banner-slider {
@@ -173,7 +172,6 @@ a:hover {
     position: relative;
 }
 
-/* Mỗi slide chiếm toàn bộ khung */
 .banner-slide {
     position: absolute;
     top: 0;
@@ -184,7 +182,8 @@ a:hover {
     background-size: cover;
     background-position: center;
     opacity: 0;
-    transition: opacity 0.8s ease;
+    transform: scale(1.05);
+    transition: opacity 0.8s ease, transform 0.8s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -194,10 +193,11 @@ a:hover {
 
 .banner-slide.active {
     opacity: 1;
+    transform: scale(1);
     z-index: 2;
 }
 
-/* Lớp phủ tối để chữ nổi */
+/* Lớp phủ gradient mềm mại */
 .banner-slide::before {
     content: '';
     position: absolute;
@@ -205,7 +205,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.55);
+    background: linear-gradient(135deg, rgba(30, 58, 95, 0.7) 0%, rgba(230, 126, 34, 0.4) 100%);
     z-index: 1;
 }
 
@@ -222,13 +222,22 @@ a:hover {
     font-weight: 700;
     margin-bottom: 12px;
     text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
 }
-
 .banner-content p {
     font-size: 1.3rem;
-    opacity: 0.95;
-    margin-bottom: 20px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.3s forwards;
+}
+.banner-content .btn-banner {
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.6s forwards;
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 .btn-banner {
@@ -281,7 +290,7 @@ a:hover {
     right: 20px;
 }
 
-/* Dấu chấm (dots) */
+/* Dấu chấm */
 .banner-dots {
     position: absolute;
     bottom: 30px;
@@ -307,53 +316,6 @@ a:hover {
 }
 .banner-dot:hover {
     background: var(--accent-light);
-}
-
-/* Responsive cho banner */
-@media (max-width: 820px) {
-    .banner, .banner-slider, .banner-slides-wrapper, .banner-slide {
-        min-height: 40vh;
-    }
-    .banner-content h1 {
-        font-size: 2.4rem;
-    }
-    .banner-content p {
-        font-size: 1.1rem;
-    }
-    .btn-banner {
-        padding: 10px 28px;
-        font-size: 1rem;
-    }
-    .banner-btn {
-        font-size: 1.5rem;
-        padding: 8px 12px;
-    }
-}
-@media (max-width: 480px) {
-    .banner, .banner-slider, .banner-slides-wrapper, .banner-slide {
-        min-height: 35vh;
-    }
-    .banner-content h1 {
-        font-size: 1.8rem;
-    }
-    .banner-content p {
-        font-size: 0.95rem;
-    }
-    .btn-banner {
-        padding: 8px 22px;
-        font-size: 0.9rem;
-    }
-    .banner-btn {
-        display: none; /* ẩn nút trên màn hình nhỏ để tránh rối */
-    }
-    .banner-dots {
-        bottom: 16px;
-        gap: 10px;
-    }
-    .banner-dot {
-        width: 12px;
-        height: 12px;
-    }
 }
 
 /* ============================================================
@@ -652,9 +614,9 @@ a:hover {
     align-items: center;
     gap: 10px;
     font-size: 0.95rem;
-     flex: 1;                 /* co giãn đều nhau */
-     width: 100%;              /* chiếm toàn bộ chiều ngang */
-    text-align: center;      /* căn chữ giữa bên trong */
+    flex: 1;
+    width: 100%;
+    text-align: center;
 }
 .teacher-tags span i {
     color: var(--accent);
@@ -973,14 +935,22 @@ a:hover {
         padding: 12px 18px;
         border-radius: 10px;
     }
-    .banner {
-        height: 280px;
+    .banner, .banner-slider, .banner-slides-wrapper, .banner-slide {
+        min-height: 40vh;
     }
     .banner-content h1 {
         font-size: 2.4rem;
     }
     .banner-content p {
+        font-size: 1.1rem;
+    }
+    .btn-banner {
+        padding: 10px 28px;
         font-size: 1rem;
+    }
+    .banner-btn {
+        font-size: 1.5rem;
+        padding: 8px 12px;
     }
     .hero-avatar {
         flex: 0 0 120px;
@@ -1018,18 +988,29 @@ a:hover {
     .logo {
         font-size: 1rem;
     }
-    .banner {
-        height: 220px;
+    .banner, .banner-slider, .banner-slides-wrapper, .banner-slide {
+        min-height: 35vh;
     }
     .banner-content h1 {
         font-size: 1.8rem;
     }
     .banner-content p {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
     .btn-banner {
-        padding: 8px 24px;
+        padding: 8px 22px;
         font-size: 0.9rem;
+    }
+    .banner-btn {
+        display: none;
+    }
+    .banner-dots {
+        bottom: 16px;
+        gap: 10px;
+    }
+    .banner-dot {
+        width: 12px;
+        height: 12px;
     }
     .hero {
         flex-direction: column;

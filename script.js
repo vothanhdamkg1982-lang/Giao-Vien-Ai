@@ -2,33 +2,84 @@
    QUẢN LÝ TRANG THÁI & RENDER
    ============================================================ */
 
-// Lấy dữ liệu từ biến toàn cục đã khai báo trong HTML
-// (PHOTOS, VIDEOS, DOCUMENTS, CHUYENMON, LINKS)
+// ============================================================
+// BANNER SLIDER
+// ============================================================
+let currentSlide = 0;
+let slideInterval;
 
-// ---- Slide cho banner động ----
-const SLIDES = [
-    {
-        title: 'Võ Thanh Đậm',
-        desc: 'Giáo viên Tin học 🎓 Trường Tiểu học Trần Quốc Toản, Đặc khu Kiên Hải, An Giang',
-        btnText: 'Tìm hiểu thêm',
-        btnLink: '#section-teacher',
-        bg: 'https://dicresco.vn/wp-content/uploads/2023/04/background-banner-dep.jpg'
-    },
-    {
-        title: '24 năm cống hiến',
-        desc: 'Tận tâm với sự nghiệp trồng người, không ngừng đổi mới sáng tạo',
-        btnText: 'Xem thành tích',
-        btnLink: '#section-documents',
-        bg: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=1200&q=80'
-    },
-    {
-        title: 'Ứng dụng công nghệ',
-        desc: 'Đưa CNTT vào giảng dạy, tạo hứng thú cho học sinh',
-        btnText: 'Khám phá',
-        btnLink: '#section-ungdung',
-        bg: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80'
-    }
-];
+function renderBanner() {
+    const wrapper = document.getElementById('bannerSlidesWrapper');
+    const dotsContainer = document.getElementById('bannerDots');
+
+    wrapper.innerHTML = SLIDES.map((slide, index) => {
+        let contentHtml = '';
+        if (slide.customHtml) {
+            contentHtml = slide.customHtml;
+        } else {
+            contentHtml = `
+                <div class="banner-content">
+                    <h1>${slide.title}</h1>
+                    <p>${slide.desc}</p>
+                    <a href="${slide.btnLink}" class="btn-banner" onclick="switchSection('${slide.btnLink.replace('#section-', '')}')">${slide.btnText}</a>
+                </div>
+            `;
+        }
+        return `
+            <div class="banner-slide ${index === 0 ? 'active' : ''}" 
+                 style="background-image: url('${slide.bg}');" 
+                 data-index="${index}">
+                ${contentHtml}
+            </div>
+        `;
+    }).join('');
+
+    dotsContainer.innerHTML = SLIDES.map((_, index) => `
+        <span class="banner-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
+    `).join('');
+
+    document.querySelectorAll('.banner-dot').forEach(dot => {
+        dot.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            goToSlide(index);
+        });
+    });
+
+    document.getElementById('bannerPrev').addEventListener('click', () => goToSlide(currentSlide - 1));
+    document.getElementById('bannerNext').addEventListener('click', () => goToSlide(currentSlide + 1));
+
+    startAutoSlide();
+}
+
+function goToSlide(index) {
+    const slides = document.querySelectorAll('.banner-slide');
+    const dots = document.querySelectorAll('.banner-dot');
+    const total = slides.length;
+
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentSlide = index;
+
+    resetAutoSlide();
+}
+
+function startAutoSlide() {
+    if (slideInterval) clearInterval(slideInterval);
+    slideInterval = setInterval(() => {
+        goToSlide(currentSlide + 1);
+    }, 5000);
+}
+
+function resetAutoSlide() {
+    clearInterval(slideInterval);
+    startAutoSlide();
+}
 
 // ===== Chuyển đổi section =====
 function switchSection(sectionId) {
@@ -42,7 +93,6 @@ function switchSection(sectionId) {
 
     document.getElementById('navLinks').classList.remove('open');
 
-    // Render dữ liệu khi vào section
     if (sectionId === 'photos') renderPhotos(getActiveFilter('photoFilterBar'));
     if (sectionId === 'videos') renderVideos(getActiveFilter('videoFilterBar'));
     if (sectionId === 'documents') renderDocuments(getActiveFilter('docFilterBar'));
@@ -64,93 +114,12 @@ function updateBadges() {
     document.getElementById('videoCount').textContent = VIDEOS.length;
     document.getElementById('docCount').textContent = DOCUMENTS.length;
     document.getElementById('chuyenmonCount').textContent = CHUYENMON.length;
+    document.getElementById('ungdungCount').textContent = UNGDUNG.length;
     document.getElementById('homePhotoCount').textContent = PHOTOS.length;
     document.getElementById('homeVideoCount').textContent = VIDEOS.length;
     document.getElementById('homeDocCount').textContent = DOCUMENTS.length;
 }
 
-// ============================================================
-// BANNER SLIDER
-// ============================================================
-let currentSlide = 0;
-let slideInterval;
-
-function renderBanner() {
-    const wrapper = document.getElementById('bannerSlidesWrapper');
-    const dotsContainer = document.getElementById('bannerDots');
-
-    // Tạo các slide
-    wrapper.innerHTML = SLIDES.map((slide, index) => `
-        <div class="banner-slide ${index === 0 ? 'active' : ''}" 
-             style="background-image: url('${slide.bg}');" 
-             data-index="${index}">
-            <div class="banner-content">
-                <h1>${slide.title}</h1>
-                <p>${slide.desc}</p>
-                <a href="${slide.btnLink}" class="btn-banner" onclick="switchSection('${slide.btnLink.replace('#section-', '')}')">${slide.btnText}</a>
-            </div>
-        </div>
-    `).join('');
-
-    // Tạo dots
-    dotsContainer.innerHTML = SLIDES.map((_, index) => `
-        <span class="banner-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
-    `).join('');
-
-    // Gắn sự kiện cho dots
-    document.querySelectorAll('.banner-dot').forEach(dot => {
-        dot.addEventListener('click', function() {
-            const index = parseInt(this.dataset.index);
-            goToSlide(index);
-        });
-    });
-
-    // Nút điều hướng
-    document.getElementById('bannerPrev').addEventListener('click', () => goToSlide(currentSlide - 1));
-    document.getElementById('bannerNext').addEventListener('click', () => goToSlide(currentSlide + 1));
-
-    // Tự động chạy
-    startAutoSlide();
-}
-
-function goToSlide(index) {
-    const slides = document.querySelectorAll('.banner-slide');
-    const dots = document.querySelectorAll('.banner-dot');
-    const total = slides.length;
-
-    // Xử lý vòng lặp
-    if (index < 0) index = total - 1;
-    if (index >= total) index = 0;
-
-    // Ẩn tất cả
-    slides.forEach(s => s.classList.remove('active'));
-    dots.forEach(d => d.classList.remove('active'));
-
-    // Hiển thị slide mới
-    slides[index].classList.add('active');
-    dots[index].classList.add('active');
-    currentSlide = index;
-
-    // Reset timer tự động
-    resetAutoSlide();
-}
-
-function startAutoSlide() {
-    if (slideInterval) clearInterval(slideInterval);
-    slideInterval = setInterval(() => {
-        goToSlide(currentSlide + 1);
-    }, 5000); // 5 giây
-}
-
-function resetAutoSlide() {
-    clearInterval(slideInterval);
-    startAutoSlide();
-}
-
-// Khởi tạo banner khi trang load
-document.addEventListener('DOMContentLoaded', function() {
-    renderBanner();
-});
 // ===== Render ẢNH (có lọc) =====
 function renderPhotos(filter = 'all') {
     const grid = document.getElementById('photoGrid');
@@ -175,7 +144,6 @@ function renderPhotos(filter = 'all') {
         </div>
     `).join('');
 
-    // Lightbox cho ảnh
     document.querySelectorAll('#photoGrid .gallery-item img').forEach((img) => {
         img.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -275,6 +243,39 @@ function renderChuyenMon(filter = 'all') {
     }).join('');
 }
 
+// ===== Render ỨNG DỤNG =====
+function renderUngDung(filter = 'all') {
+    const list = document.getElementById('ungdungList');
+    let items = UNGDUNG;
+    if (filter !== 'all') items = items.filter(c => c.category === filter);
+
+    if (!items.length) {
+        list.innerHTML = `<div class="empty-state"><i class="fas fa-folder"></i><p>Không có ứng dụng nào trong danh mục này.</p></div>`;
+        return;
+    }
+    list.innerHTML = items.map(c => {
+        let icon = 'fa-file-excel';
+        if (c.type === 'xlsx') icon = 'fa-file-excel';
+        else if (c.type === 'docx') icon = 'fa-file-word';
+        else icon = 'fa-file-pdf';
+        return `
+            <div class="doc-item">
+                <div class="doc-info">
+                    <i class="fas ${icon}"></i>
+                    <div>
+                        <div class="doc-title">${c.title || 'Ứng dụng'}</div>
+                        <div class="doc-desc">${c.desc || ''}</div>
+                    </div>
+                </div>
+                <div class="doc-actions">
+                    <a href="${c.url}" target="_blank" rel="noopener"><i class="fas fa-eye"></i> Xem</a>
+                    <a href="${c.url}" download="${c.title || 'ungdung'}.${c.type || 'xlsx'}"><i class="fas fa-download"></i> Tải xuống</a>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
 // ===== Render LIÊN KẾT =====
 function renderLinks() {
     const grid = document.getElementById('linksGrid');
@@ -355,6 +356,7 @@ document.querySelectorAll('.filter-bar').forEach(bar => {
             case 'videos': renderVideos(filter); break;
             case 'documents': renderDocuments(filter); break;
             case 'chuyenmon': renderChuyenMon(filter); break;
+            case 'ungdung': renderUngDung(filter); break;
         }
     });
 });
@@ -369,7 +371,6 @@ document.querySelectorAll('.nav-links button').forEach(btn => {
     });
 });
 
-// Menu mobile
 document.getElementById('menuToggle').addEventListener('click', function() {
     document.getElementById('navLinks').classList.toggle('open');
 });
@@ -377,12 +378,16 @@ document.getElementById('menuToggle').addEventListener('click', function() {
 // ============================================================
 // KHỞI TẠO
 // ============================================================
-renderPhotos('all');
-renderVideos('all');
-renderDocuments('all');
-renderChuyenMon('all');
-renderLinks();
-updateBadges();
-switchSection('home');
+document.addEventListener('DOMContentLoaded', function() {
+    renderBanner();
+    renderPhotos('all');
+    renderVideos('all');
+    renderDocuments('all');
+    renderChuyenMon('all');
+    renderUngDung('all');
+    renderLinks();
+    updateBadges();
+    switchSection('home');
+});
 
-console.log('✅ Website đã sẵn sàng với giao diện mới!');
+console.log('✅ Website đã sẵn sàng với banner động ấn tượng!');

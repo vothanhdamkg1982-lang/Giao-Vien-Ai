@@ -32,24 +32,19 @@
         </nav>
     </header>
 
-   <!--- ===== BANNER ĐỘNG (SLIDER) ===== -->
-<section class="banner">
-    <div class="banner-slider" id="bannerSlider">
-        <!-- Các slide được tạo bởi JavaScript -->
-        <div class="banner-slides-wrapper" id="bannerSlidesWrapper"></div>
-
-        <!-- Nút điều hướng -->
-        <button class="banner-btn banner-btn-prev" id="bannerPrev" aria-label="Slide trước">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="banner-btn banner-btn-next" id="bannerNext" aria-label="Slide sau">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-
-        <!-- Chấm tròn chỉ vị trí -->
-        <div class="banner-dots" id="bannerDots"></div>
-    </div>
-</section>
+    <!-- ===== BANNER ĐỘNG (SLIDER) ===== -->
+    <section class="banner">
+        <div class="banner-slider" id="bannerSlider">
+            <div class="banner-slides-wrapper" id="bannerSlidesWrapper"></div>
+            <button class="banner-btn banner-btn-prev" id="bannerPrev" aria-label="Slide trước">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="banner-btn banner-btn-next" id="bannerNext" aria-label="Slide sau">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="banner-dots" id="bannerDots"></div>
+        </div>
+    </section>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="container">
@@ -271,7 +266,7 @@
             { id: 'cm7', title: 'Sáng kiến: Học mà chơi - Trò chơi ô chữ Tin học', desc: 'Áp dụng cho lớp 3,4', url: '#', category: 'sangkien', type: 'pdf' },
         ];
 
-          // --- Ứng dụng Excel ---
+        // --- Ứng dụng Excel ---
         const UNGDUNG = [
             { id: 'ex1', title: 'Kế hoạch giáo dục - Lịch báo giảng tự động', desc: 'Excel tự động tính lịch theo tuần', url: '/files/ex1.xlsx', category: 'ungdung', type: 'xlsx' },
             { id: 'ex2', title: 'Bảng kiểm phiếu', desc: 'Tổng hợp phiếu bầu tự động', url: '/files/ex2.xlsx', category: 'ungdung', type: 'xlsx' },
@@ -288,6 +283,43 @@
             { title: 'Bồi dưỡng Giáo viên Phổ thông', url: 'https://taphuan.csdl.edu.vn', desc: 'Quản lý cơ sở giáo dục' },
             { title: 'VNEDU Trần Quốc Toản', url: 'https://ucnnzccazsgdkiengiang.vnedu.vn', desc: 'Quản lý học sinh' },
             { title: 'Đại học Trà Vinh', url: 'https://lms2tvu.onschool.edu.vn/', desc: 'Khóa học trực tuyến' },
+        ];
+
+        // ---- Slide cho banner động (có ảnh đại diện nổi bật) ----
+        const SLIDES = [
+            {
+                title: 'Võ Thanh Đậm',
+                desc: 'Giáo viên Tin học • Trường Tiểu học Trần Quốc Toản',
+                btnText: 'Tìm hiểu thêm',
+                btnLink: '#section-teacher',
+                bg: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=1600&q=80', // Học sinh + công nghệ
+                // Ảnh đại diện nổi bật
+                avatar: 'https://i.ibb.co/GQywpxZS/IMG-0030.jpg'
+            },
+            {
+                title: 'Máy tính & Lập trình',
+                desc: 'Khơi nguồn sáng tạo với công nghệ thông tin',
+                btnText: 'Khám phá',
+                btnLink: '#section-chuyenmon',
+                bg: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=80', // Lập trình
+                avatar: null
+            },
+            {
+                title: 'Học sinh & Công nghệ',
+                desc: 'Ứng dụng CNTT trong giảng dạy và học tập',
+                btnText: 'Xem kho ảnh',
+                btnLink: '#section-photos',
+                bg: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80', // Học sinh với máy tính
+                avatar: null
+            },
+            {
+                title: '24 năm cống hiến',
+                desc: 'Tận tâm với sự nghiệp trồng người',
+                btnText: 'Xem thành tích',
+                btnLink: '#section-documents',
+                bg: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1600&q=80', // Sách vở
+                avatar: null
+            }
         ];
     </script>
 
