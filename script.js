@@ -5,6 +5,31 @@
 // Lấy dữ liệu từ biến toàn cục đã khai báo trong HTML
 // (PHOTOS, VIDEOS, DOCUMENTS, CHUYENMON, LINKS)
 
+// ---- Slide cho banner động ----
+const SLIDES = [
+    {
+        title: 'Võ Thanh Đậm',
+        desc: 'Giáo viên Tin học 🎓 Trường Tiểu học Trần Quốc Toản, Đặc khu Kiên Hải, An Giang',
+        btnText: 'Tìm hiểu thêm',
+        btnLink: '#section-teacher',
+        bg: 'https://dicresco.vn/wp-content/uploads/2023/04/background-banner-dep.jpg'
+    },
+    {
+        title: '24 năm cống hiến',
+        desc: 'Tận tâm với sự nghiệp trồng người, không ngừng đổi mới sáng tạo',
+        btnText: 'Xem thành tích',
+        btnLink: '#section-documents',
+        bg: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=1200&q=80'
+    },
+    {
+        title: 'Ứng dụng công nghệ',
+        desc: 'Đưa CNTT vào giảng dạy, tạo hứng thú cho học sinh',
+        btnText: 'Khám phá',
+        btnLink: '#section-ungdung',
+        bg: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80'
+    }
+];
+
 // ===== Chuyển đổi section =====
 function switchSection(sectionId) {
     document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
@@ -44,6 +69,88 @@ function updateBadges() {
     document.getElementById('homeDocCount').textContent = DOCUMENTS.length;
 }
 
+// ============================================================
+// BANNER SLIDER
+// ============================================================
+let currentSlide = 0;
+let slideInterval;
+
+function renderBanner() {
+    const wrapper = document.getElementById('bannerSlidesWrapper');
+    const dotsContainer = document.getElementById('bannerDots');
+
+    // Tạo các slide
+    wrapper.innerHTML = SLIDES.map((slide, index) => `
+        <div class="banner-slide ${index === 0 ? 'active' : ''}" 
+             style="background-image: url('${slide.bg}');" 
+             data-index="${index}">
+            <div class="banner-content">
+                <h1>${slide.title}</h1>
+                <p>${slide.desc}</p>
+                <a href="${slide.btnLink}" class="btn-banner" onclick="switchSection('${slide.btnLink.replace('#section-', '')}')">${slide.btnText}</a>
+            </div>
+        </div>
+    `).join('');
+
+    // Tạo dots
+    dotsContainer.innerHTML = SLIDES.map((_, index) => `
+        <span class="banner-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
+    `).join('');
+
+    // Gắn sự kiện cho dots
+    document.querySelectorAll('.banner-dot').forEach(dot => {
+        dot.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            goToSlide(index);
+        });
+    });
+
+    // Nút điều hướng
+    document.getElementById('bannerPrev').addEventListener('click', () => goToSlide(currentSlide - 1));
+    document.getElementById('bannerNext').addEventListener('click', () => goToSlide(currentSlide + 1));
+
+    // Tự động chạy
+    startAutoSlide();
+}
+
+function goToSlide(index) {
+    const slides = document.querySelectorAll('.banner-slide');
+    const dots = document.querySelectorAll('.banner-dot');
+    const total = slides.length;
+
+    // Xử lý vòng lặp
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+
+    // Ẩn tất cả
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+
+    // Hiển thị slide mới
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentSlide = index;
+
+    // Reset timer tự động
+    resetAutoSlide();
+}
+
+function startAutoSlide() {
+    if (slideInterval) clearInterval(slideInterval);
+    slideInterval = setInterval(() => {
+        goToSlide(currentSlide + 1);
+    }, 5000); // 5 giây
+}
+
+function resetAutoSlide() {
+    clearInterval(slideInterval);
+    startAutoSlide();
+}
+
+// Khởi tạo banner khi trang load
+document.addEventListener('DOMContentLoaded', function() {
+    renderBanner();
+});
 // ===== Render ẢNH (có lọc) =====
 function renderPhotos(filter = 'all') {
     const grid = document.getElementById('photoGrid');

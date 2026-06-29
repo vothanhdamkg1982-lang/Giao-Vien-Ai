@@ -32,14 +32,22 @@
         </nav>
     </header>
 
-    <!--- ===== BANNER ===== -->
+   <!--- ===== BANNER ĐỘNG (SLIDER) ===== -->
 <section class="banner">
-    <div class="banner-overlay">
-        <div class="banner-content">
-            <h1>Võ Thanh Đậm</h1>
-            <p>Giáo viên Tin học 🎓 Trường Tiểu học Trần Quốc Toản, Đặc khu Kiên Hải, An Giang</p>
-            <a href="#section-teacher" class="btn-banner" onclick="switchSection('teacher')">Tìm hiểu thêm</a>
-        </div>
+    <div class="banner-slider" id="bannerSlider">
+        <!-- Các slide được tạo bởi JavaScript -->
+        <div class="banner-slides-wrapper" id="bannerSlidesWrapper"></div>
+
+        <!-- Nút điều hướng -->
+        <button class="banner-btn banner-btn-prev" id="bannerPrev" aria-label="Slide trước">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="banner-btn banner-btn-next" id="bannerNext" aria-label="Slide sau">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <!-- Chấm tròn chỉ vị trí -->
+        <div class="banner-dots" id="bannerDots"></div>
     </div>
 </section>
 
